@@ -47,11 +47,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
       ),
-      body: <Widget>[
-        Placeholder(), // TODO: add "reminder" widget
-        Placeholder(), // TODO: add "home" widget
-        Placeholder(), // TODO: add "my orders" widget
-      ][currentPageIndex],
+      body: SafeArea(
+        child: <Widget>[
+          Placeholder(), // TODO: add "reminder" widget
+          Placeholder(), // TODO: add "home" widget
+          Placeholder(), // TODO: add "my orders" widget
+        ][currentPageIndex],
+      ),
     );
   }
 }
