@@ -27,8 +27,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
             currentPageIndex = index;
           });
         },
-        backgroundColor: const Color(0xffa6e79b), // TODO: use unified theme instead of hardcoded colors
-        indicatorColor: const Color(0xff91d285),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
