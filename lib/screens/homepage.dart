@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Cerca un farmaco',
+              filled: true,
             ),
           ),
           Placeholder(), // TODO: add list of favorite medicines
