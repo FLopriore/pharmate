@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/screens/homepage.dart';
 
 /*
 * This widget is a navigation bar shown on the bottom of the screen.
@@ -50,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: SafeArea(
         child: <Widget>[
           Placeholder(), // TODO: add "reminder" widget
-          Placeholder(), // TODO: add "home" widget
+          HomePage(), // TODO: add "home" widget
           Placeholder(), // TODO: add "my orders" widget
         ][currentPageIndex],
       ),
