@@ -31,6 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
+            selectedIcon: Icon(Icons.access_time_filled_outlined),
             icon: Icon(Icons.access_time_outlined),
             label: 'Promemoria',
           ),
