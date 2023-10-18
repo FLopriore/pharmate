@@ -14,9 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme,textTheme: GoogleFonts.interTightTextTheme()),
-      // darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      title: 'PharMate',
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+          textTheme: GoogleFonts.interTightTextTheme()),
+      //darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const BottomNavBar(),
     );
   }
