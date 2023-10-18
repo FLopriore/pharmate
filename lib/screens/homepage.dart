@@ -10,26 +10,38 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20),
-          Align(
+          SizedBox(width: 450,
+          child: Align(
             alignment: Alignment.topLeft,
             child: Text(
             "Benvenuto",
-            style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 50),
+            style: const TextStyle(fontWeight: FontWeight.w900,fontSize: 50,color: Colors.black),
             textAlign: TextAlign.center,
                 ),
-          ),
+          ),),
           //TODO: De-center the text
-          SizedBox(height: 5),
-          TextField(
+          SizedBox(width: 450,
+            child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                Radius.circular(60.0), 
+                ),
+                borderSide: BorderSide(
+                width: 0, 
+                style: BorderStyle.none,
+                  )
+                  ),
               hintText: 'Cerca un farmaco',
+              suffixIcon: Icon(Icons.search),
               filled: true,
             ),
           ),
+
+          ),
           SizedBox(height: 75),
           Text(
-            "Acquista di nuovo",
+            "Acquista subito",
             style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
             textAlign: TextAlign.left,
                 ),
