@@ -10,17 +10,19 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20),
-          SizedBox(width: 450,
+          SizedBox(width:400,
           child: Align(
-            alignment: Alignment.topLeft,
+            alignment: 
+            Alignment.topLeft,
             child: Text(
             "Benvenuto",
             style: TextStyle(fontWeight: FontWeight.w900,fontSize: 50,color: Colors.black),
             textAlign: TextAlign.center,
                 ),
-          ),),
+          ),
+          ),
           //TODO: De-center the text
-          CustomSearchBar(),
+          SizedBox(width: 400,child: CustomSearchBar(),),
           SizedBox(height: 75),
           Text(
             "Acquista subito",
