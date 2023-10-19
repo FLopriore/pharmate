@@ -10,23 +10,21 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20),
-          SizedBox(width:400,
-          child: Align(
+          Align(
             alignment: 
-            Alignment.topLeft,
+            Alignment.center,
             child: Text(
             "Benvenuto",
-            style: TextStyle(fontWeight: FontWeight.w900,fontSize: 50,color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w900,fontSize: 45,color: Colors.black),
             textAlign: TextAlign.center,
                 ),
           ),
-          ),
           //TODO: De-center the text
-          SizedBox(width: 400,child: CustomSearchBar(),),
+          CustomSearchBar(),
           SizedBox(height: 75),
           Text(
             "Acquista subito",
-            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
+            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black),
             textAlign: TextAlign.left,
                 ),
           Placeholder(), // TODO: add list of favorite medicines
