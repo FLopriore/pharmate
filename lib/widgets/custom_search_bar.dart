@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pharmate/screens/my_orders.dart';
 
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({super.key});
@@ -24,6 +26,9 @@ class _SearchBarAppState extends State<CustomSearchBar> {
           },
           onChanged: (_) {
             controller.openView();
+          },
+          onSubmitted: (String str){
+            Navigator.of(context).push(MaterialPageRoute(builder:(context) => const MyOrders()));
           },
           leading: const Icon(Icons.search),
         );

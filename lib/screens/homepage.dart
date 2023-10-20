@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             alignment: 
             Alignment.center,
             child: Text(
-            "Benvenuto",
+            "Cerca Farmaco",
             style: TextStyle(fontWeight: FontWeight.w900,fontSize: 45,color: Colors.black),
             textAlign: TextAlign.center,
                 ),
