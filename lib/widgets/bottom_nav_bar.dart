@@ -17,11 +17,14 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentPageIndex = 1; // default page is home
+  NavigationDestinationLabelBehavior labelBehavior =
+      NavigationDestinationLabelBehavior.onlyShowSelected;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        labelBehavior: labelBehavior,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
