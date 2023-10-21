@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/screens/my_orders.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key});
+  static bool route = true;
+   Widget page = MyOrders();
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -19,8 +21,7 @@ class HomePage extends StatelessWidget {
             textAlign: TextAlign.center,
                 ),
           ),
-          //TODO: De-center the text
-          CustomSearchBar(),
+          CustomSearchBar(true,MyOrders()),
           SizedBox(height: 75),
           Text(
             "Acquista subito",

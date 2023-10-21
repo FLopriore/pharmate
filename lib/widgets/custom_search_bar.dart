@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/screens/my_orders.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  const CustomSearchBar({super.key});
+  final bool route;
+  final Widget page;
+  const CustomSearchBar(this.route,this.page);
+
+  bool get getRoute{return route;}
+  Widget get getPage{return page;}
 
   @override
-  State<CustomSearchBar> createState() => _CustomSearchBarState();
+  State<CustomSearchBar> createState() => _CustomSearchBarState(this.page,this.route);
 }
-
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController controller = TextEditingController();
-
+  final bool route;
+  final Widget page;
+  _CustomSearchBarState(this.page,this.route){}
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,9 +26,10 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         padding: const MaterialStatePropertyAll<EdgeInsets>(
             EdgeInsets.symmetric(horizontal: 10.0)),
         onSubmitted: (String str) {
+          if (route == true){
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const MyOrders()));
-        },
+              .push(MaterialPageRoute(builder: (context) => page));
+        }},
         leading: const Icon(Icons.search),
       ),
     );
