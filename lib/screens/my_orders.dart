@@ -19,7 +19,7 @@ class MyOrders extends StatelessWidget {
             textAlign: TextAlign.center,
                 ),
           ),
-          CustomSearchBar(false,MyOrders()),
+          CustomSearchBar(route: false, page: MyOrders()),
           SizedBox(height: 50),
           Placeholder(),
         ]

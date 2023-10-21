@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatefulWidget {
+  // Decides whether or not to change page when you submit a text in the SearchBar
   final bool route;
-  final Widget page;
-  const CustomSearchBar(this.route,this.page);
 
-  bool get getRoute{return route;}
-  Widget get getPage{return page;}
+  // The destination page when you submit a text.
+  final Widget page;
+
+  const CustomSearchBar({super.key, required this.route, required this.page});
 
   @override
-  State<CustomSearchBar> createState() => _CustomSearchBarState(this.page,this.route);
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
+
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController controller = TextEditingController();
-  final bool route;
-  final Widget page;
-  _CustomSearchBarState(this.page,this.route){}
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,10 +26,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         padding: const MaterialStatePropertyAll<EdgeInsets>(
             EdgeInsets.symmetric(horizontal: 10.0)),
         onSubmitted: (String str) {
-          if (route == true){
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => page));
-        }},
+          if (widget.route == true) {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => widget.page));
+          }
+        },
         leading: const Icon(Icons.search),
       ),
     );
