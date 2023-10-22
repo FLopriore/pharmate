@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatefulWidget {
   // Decides whether or not to change page when you submit a text in the SearchBar
-  final bool route;
+  final bool _withRoute;
 
   // The destination page when you submit a text.
   final Widget page;
 
-  const CustomSearchBar({super.key, required this.route, required this.page});
+  // Default constructor (normal SearchBar)
+  const CustomSearchBar({super.key})
+      : _withRoute = false,
+        page = const Placeholder();
+
+  // Custom constructor
+  // When text is submitted, navigates to the specified page.
+  const CustomSearchBar.withPageRoute({super.key, required this.page})
+      : _withRoute = true;
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -26,7 +34,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         padding: const MaterialStatePropertyAll<EdgeInsets>(
             EdgeInsets.symmetric(horizontal: 10.0)),
         onSubmitted: (String str) {
-          if (widget.route == true) {
+          if (widget._withRoute == true) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => widget.page));
           }
