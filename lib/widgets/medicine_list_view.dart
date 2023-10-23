@@ -8,17 +8,22 @@ class MedicineListView extends StatefulWidget {
 }
 
 class _MedicineListViewState extends State<MedicineListView> {
-  final List<String> listMedicines = [];  // TODO: replace String with Medicine class
+  final List<String> listMedicines = ['ciao'];  // TODO: replace String with Medicine class
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        padding: const EdgeInsets.all(8),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
         itemCount: listMedicines.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: Text(listMedicines[index]),
-            trailing: Placeholder(), // TODO: add "order now" button
+            trailing: ElevatedButton(onPressed: (){},
+              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Color(0xCAE6FFFF))), 
+              child: const Row(
+                    children: [Icon(Icons.shopping_cart),Text('Ordina')])
+            )
           );
         }
     );
