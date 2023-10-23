@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
+import 'package:pharmate/widgets/medicine_list_view.dart';
 
 class MyOrders extends StatelessWidget {
   const MyOrders({super.key});
@@ -21,7 +22,8 @@ class MyOrders extends StatelessWidget {
           ),
           CustomSearchBar(),
           SizedBox(height: 50),
-          Placeholder(),
+          Expanded(child: MedicineListView()),
+          SizedBox(height: 20),
         ]
       )
       );
