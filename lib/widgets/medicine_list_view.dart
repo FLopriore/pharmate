@@ -20,13 +20,14 @@ class _MedicineListViewState extends State<MedicineListView> {
       child: Material(
         color: Colors.white, // TODO (Francesco): change background color to match Figma project
         borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-        child: ListView.builder(
+        child: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: listMedicines.length,
             itemBuilder: (BuildContext context, int index) {
-              return MedicineListTile(title: listMedicines[index]);
+              return MedicineListTile(title: listMedicines[index]); // TODO: replace with ExpansionTile
             }),
       ),
     );
