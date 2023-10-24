@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/widgets/medicine_list_tile.dart';
 
 class MedicineListView extends StatefulWidget {
   const MedicineListView({super.key});
@@ -25,17 +26,7 @@ class _MedicineListViewState extends State<MedicineListView> {
             scrollDirection: Axis.vertical,
             itemCount: listMedicines.length,
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                  title: Text(listMedicines[index]),
-                  trailing: ElevatedButton.icon(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll<Color>(Color(0xCAE6FFFF)),
-                      //foregroundColor: MaterialStatePropertyAll<Color>(Color(0xff0888FD)) // TODO (?): maybe change text color
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.shopping_cart_outlined),
-                    label: const Text("Ordina"),
-                  ));
+              return MedicineListTile(title: listMedicines[index]);
             }),
       ),
     );
