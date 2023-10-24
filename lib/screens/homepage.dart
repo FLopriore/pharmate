@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/screens/order_page.dart';
+import 'package:pharmate/widgets/buy_now_list_view.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           CustomSearchBar.withPageRoute(page: MyOrders()),
-          SizedBox(height: 75),
+          SizedBox(height: 60),
           Text(
             "Acquista subito",
             style: TextStyle(
@@ -34,7 +35,8 @@ class HomePage extends StatelessWidget {
             ),
             textAlign: TextAlign.left,
           ),
-          Placeholder(), // TODO: add list of favorite medicines
+          Expanded(child: BuyNowListView()),
+          SizedBox(height: 60),// TODO: add list of favorite medicines
         ],
       ),
     );
