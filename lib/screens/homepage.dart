@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Expanded(child: BuyNowListView()),
-          SizedBox(height: 60),// TODO: add list of favorite medicines
+          SizedBox(height: 60),
         ],
       ),
     );

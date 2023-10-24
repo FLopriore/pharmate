@@ -49,7 +49,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: SafeArea(
         child: <Widget>[
           Placeholder(), // TODO: add "reminder" widget
-          HomePage(), // TODO: add "home" widget
+          const HomePage(),
           Placeholder(), // TODO: add "my orders" widget
         ][currentPageIndex],
       ),
