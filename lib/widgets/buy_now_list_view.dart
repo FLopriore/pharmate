@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/widgets/medicine_list_tile.dart';
+import 'package:pharmate/widgets/buy_now_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BuyNowListView extends StatefulWidget {
@@ -39,7 +39,7 @@ class _BuyNowListViewState extends State<BuyNowListView> {
             scrollDirection: Axis.vertical,
             itemCount: favoriteMedicinesList.length,
             itemBuilder: (BuildContext context, int index) {
-              return MedicineListTile(
+              return BuyNowListTile(
                 title: favoriteMedicinesList[index],
                 leading: IconButton(
                   icon: const Icon(Icons.delete_outline),

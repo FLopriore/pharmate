@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MedicineListTile extends StatelessWidget {
+class BuyNowListTile extends StatelessWidget {
   final String title;
   final Widget? leading;
 
-  const MedicineListTile({super.key, required this.title, this.leading});
+  const BuyNowListTile({super.key, required this.title, this.leading});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,9 @@ class MedicineListTile extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll<Color>(Color(0xffc2daf8)),
             foregroundColor: MaterialStatePropertyAll<Color>(Color(0xff0888fd)) 
           ),
-          onPressed: () {},
+          onPressed: () {
+            // TODO: order medicine
+          },
           icon: const Icon(Icons.shopping_cart_outlined),
           label: const Text("Ordina"),
         ));
