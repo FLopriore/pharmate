@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          CustomSearchBar.withPageRoute(page: MyOrders()),
+          CustomSearchBar.withPageRoute(page: OrderPage()),
           SizedBox(height: 60),
           Text(
             "Acquista subito",
