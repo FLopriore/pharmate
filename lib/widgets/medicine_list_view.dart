@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/widgets/medicine_list_tile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MedicineListView extends StatefulWidget {
   const MedicineListView({super.key});
@@ -9,36 +9,71 @@ class MedicineListView extends StatefulWidget {
 }
 
 class _MedicineListViewState extends State<MedicineListView> {
-  final List<String> listMedicines = [
-    'Tachipirina', 'Ibuprofene', 'Paracetamolo', 'Cardioaspirin', 'Hello', 'hello', 'ciao', 'Hello', 'hello'
-  ]; // TODO: replace String with Medicine class
-  final List<String> listPharma = [
-    'Farmacia Del Cambio','Farmacia Calia','Open Pharma'
-  ];//TODO: Replace with DB Pharmas
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final List<String> searchResultsList = ['Tachipirina', 'Ibuprofene', 'Paracetamolo', 'Cardioaspirin', 'Hello', 'hello', 'ciao', 'Hello', 'hello'];
+  final List<String> listPharma = ['Farmacia Del Cambio', 'Farmacia Calia', 'Open Pharma']; //TODO: Replace with DB Pharmas
+  List<String> _favList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavorite();
+  }
+
+  // Loading stored values of favorite medicines on start
+  Future<void> _loadFavorite() async {
+    final prefs = await _prefs;
+    setState(() {
+      _favList = prefs.getStringList('favorite') ?? [];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Material(
-        color: Colors.white, 
+        color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(30.0)),
         child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: listMedicines.length,
+            itemCount: searchResultsList.length,
             itemBuilder: (BuildContext context, int index) {
+              String element = searchResultsList.elementAt(index);
+              bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
+
               return ExpansionTile(
-                title: Text(listMedicines.elementAt(index)),
-                trailing: IconButton(
-                  icon: Icon(Icons.grade_outlined),
-                  onPressed: () {},//TODO: Add to Favourite the medicine
-                  style: ButtonStyle(iconColor: MaterialStateProperty.all(Color(0xff0888FD)))),//TODO: add action when icon pressed
-                children: [for ( var i in listPharma ) TextButton(child:Text(i.toString()),onPressed: () {},)], //TODO: add pharmas that have medicine, Add order to my orders
-                );
+                title: Text(element),
+                leading: IconButton(
+                    icon: (isFavorite)
+                        ? const Icon(Icons.grade)
+                        : const Icon(Icons.grade_outlined),
+                    onPressed: () async {
+                      final prefs = await _prefs;
+                      setState(() {
+                        if (isFavorite) {
+                          _favList.remove(element); // remove medicine from favorite
+                        } else {
+                          _favList.add(element); // add medicine to favorite
+                        }
+                        prefs.setStringList('favorite', _favList);
+                      });
+                    },
+                    style: ButtonStyle(
+                        iconColor: MaterialStateProperty.all(const Color(0xff0888FD)))),
+                children: [
+                  for (var i in listPharma)
+                    TextButton(
+                      child: Text(i.toString()),
+                      onPressed: () {},
+                    )
+                ], //TODO: add pharmas that have medicine, Add order to my orders
+              );
             }),
       ),
     );
