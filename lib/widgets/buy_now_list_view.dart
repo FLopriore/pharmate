@@ -32,7 +32,7 @@ class _BuyNowListViewState extends State<BuyNowListView> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        color: Colors.white, // TODO (Francesco): change background color to match Figma project
+        color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(30.0)),
         child: ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
