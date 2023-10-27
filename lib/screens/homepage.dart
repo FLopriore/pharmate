@@ -33,7 +33,6 @@ class HomePage extends StatelessWidget {
               fontSize: 25,
               color: Colors.black,
             ),
-            textAlign: TextAlign.left,
           ),
           Expanded(child: BuyNowListView()),
           SizedBox(height: 60),

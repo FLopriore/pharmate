@@ -21,7 +21,15 @@ class OrderPage extends StatelessWidget {
                 ),
           ),
           CustomSearchBar(),
-          SizedBox(height: 50),
+          SizedBox(height: 40),
+          Text(
+            "Risultati",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              color: Colors.black,
+            ),
+          ),
           Expanded(child: MedicineListView()),
           SizedBox(height: 20),
         ]
