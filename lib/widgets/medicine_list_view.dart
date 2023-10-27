@@ -33,9 +33,13 @@ class _MedicineListViewState extends State<MedicineListView> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Material(
+      child: Card(
         color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        clipBehavior: Clip.antiAlias,
+        margin: EdgeInsets.zero,
         child: ListView.separated(
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
@@ -48,6 +52,7 @@ class _MedicineListViewState extends State<MedicineListView> {
               bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
 
               return ExpansionTile(
+                shape: Border.all(color: Colors.transparent),
                 title: Text(element),
                 leading: IconButton(
                     icon: (isFavorite)
