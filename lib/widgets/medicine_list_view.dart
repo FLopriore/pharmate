@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
+import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MedicineListView extends StatefulWidget {
@@ -32,15 +33,7 @@ class _MedicineListViewState extends State<MedicineListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Card(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        clipBehavior: Clip.antiAlias,
-        margin: EdgeInsets.zero,
+    return RoundedBackgroundRectangle(
         child: ListView.separated(
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
@@ -78,7 +71,6 @@ class _MedicineListViewState extends State<MedicineListView> {
                 ], //TODO: add pharmas that have medicine
               );
             }),
-      ),
     );
   }
 }
