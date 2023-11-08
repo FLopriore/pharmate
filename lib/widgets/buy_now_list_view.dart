@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,6 +52,14 @@ class _BuyNowListViewState extends State<BuyNowListView> {
                     });
                   },
                 ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ConfirmOrderPage(
+                            item: favoriteMedicinesList[index],
+                            // TODO: get favorite pharmacy from DB
+                            pharmacy: "Farmacia del Cambio",
+                          )));
+                },
               );
             }),
       ),

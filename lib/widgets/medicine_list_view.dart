@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +68,16 @@ class _MedicineListViewState extends State<MedicineListView> {
                         iconColor: MaterialStateProperty.all(const Color(0xff0888FD)))),
                 children: [
                   for (var i in listPharma)
-                    BuyNowListTile(title: i.toString())
+                    BuyNowListTile(
+                      title: i.toString(),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ConfirmOrderPage(
+                              item: element,
+                              pharmacy: i.toString(),
+                            )));
+                      },
+                    )
                 ], //TODO: add pharmas that have medicine
               );
             }),
