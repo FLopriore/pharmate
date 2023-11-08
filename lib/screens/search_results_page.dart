@@ -7,10 +7,12 @@ class SearchResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
+      body: const Column(
         children: [
-          SizedBox(height: 100),
           Align(
             alignment: 
             Alignment.center,
