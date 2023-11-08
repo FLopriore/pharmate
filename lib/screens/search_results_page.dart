@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
 import 'package:pharmate/widgets/medicine_list_view.dart';
 
-class OrderPage extends StatelessWidget {
-  const OrderPage({super.key});
+class SearchResultsPage extends StatelessWidget {
+  const SearchResultsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

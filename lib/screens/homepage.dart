@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/screens/order_page.dart';
+import 'package:pharmate/screens/search_results_page.dart';
 import 'package:pharmate/widgets/buy_now_list_view.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
 
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          CustomSearchBar.withPageRoute(page: OrderPage()),
+          CustomSearchBar.withPageRoute(page: SearchResultsPage()),
           SizedBox(height: 60),
           Text(
             "Acquista subito",
