@@ -49,7 +49,7 @@ class ConfirmOrderPage extends StatelessWidget {
                       ),
                     ),
                     trailing: const SizedBox(
-                      width: 110,
+                      width: 120,
                       child: SetNumberItems(),
                     ),
                   ),
@@ -58,7 +58,7 @@ class ConfirmOrderPage extends StatelessWidget {
                     child: Text("Farmacia:"),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Text(
                       pharmacy,
                       style: const TextStyle(
