@@ -22,7 +22,7 @@ class ConfirmOrderPage extends StatelessWidget {
             "Riepilogo Ordine",
             style: TextStyle(
               fontWeight: FontWeight.w900,
-              fontSize: 60,
+              fontSize: 50,
               color: Colors.black,
             ),
             textAlign: TextAlign.center,
