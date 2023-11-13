@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/widgets/bottom_nav_bar.dart';
+import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/ui/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
           textTheme: GoogleFonts.interTightTextTheme()),
       //darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const BottomNavBar(),
+      //home: const BottomNavBar(),
+      home: const LoginPage(),
     );
   }
 }

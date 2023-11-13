@@ -51,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: <Widget>[
           Placeholder(), // TODO: add "reminder" widget
           const HomePage(),
-          const MyOrdersPage(), // TODO: add "my orders" widget
+          const MyOrdersPage(),
         ][currentPageIndex],
       ),
     );
