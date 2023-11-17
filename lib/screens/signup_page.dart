@@ -1,7 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
+import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/login_text.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -90,8 +90,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {
                   _register();
-                  //Navigator.of(context).push(MaterialPageRoute(
-                  //    builder: (context) => const BottomNavBar()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const BottomNavBar()));
                   // TODO: signup
                 },
                 icon: const Icon(Icons.login),
@@ -112,7 +112,13 @@ class _SignUpPageState extends State<SignUpPage> {
       'favoritePharmacy': pharmacyController.text,
     };
     // 'utenti' is the end-point
-    var res = await CallApi().postData(data, 'utenti');
-    var body = jsonDecode(res);
+    var responseJson = await CallApi().postData(data, 'utenti');
+
+    // Store login data in secure storage
+    const storage = FlutterSecureStorage();
+    await storage.write(key: 'email', value: responseJson['email']);
+    await storage.write(key: 'password', value: responseJson['password']);
+    await storage.write(key: 'city', value: responseJson['city']);
+    await storage.write(key: 'pharmacy', value: responseJson['pharmacy']);
   }
 }
