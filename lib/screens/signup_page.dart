@@ -1,9 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:pharmate/widgets/bottom_nav_bar.dart';
+import 'package:pharmate/data/api.dart';
 import 'package:pharmate/widgets/login_text.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController pharmacyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +41,9 @@ class SignUpPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const LoginText(text: "Email"),
-            const TextField(
-                decoration: InputDecoration(
+            TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -38,9 +51,10 @@ class SignUpPage extends StatelessWidget {
                   hintText: 'prova@email.com',
                 )),
             const LoginText(text: "Password"),
-            const TextField(
+            TextField(
+                controller: passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -48,8 +62,9 @@ class SignUpPage extends StatelessWidget {
                   hintText: 'Inserisci password',
                 )),
             const LoginText(text: "Città di riferimento"),
-            const TextField(
-                decoration: InputDecoration(
+            TextField(
+                controller: cityController,
+                decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -57,8 +72,9 @@ class SignUpPage extends StatelessWidget {
                   hintText: 'Es. Bari',
                 )),
             const LoginText(text: "Farmacia di fiducia"),
-            const TextField(
-                decoration: InputDecoration(
+            TextField(
+                controller: pharmacyController,
+                decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -73,8 +89,9 @@ class SignUpPage extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const BottomNavBar()));
+                  _register();
+                  //Navigator.of(context).push(MaterialPageRoute(
+                  //    builder: (context) => const BottomNavBar()));
                   // TODO: signup
                 },
                 icon: const Icon(Icons.login),
@@ -85,5 +102,17 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _register() async {
+    var data = {
+      'email': emailController.text,
+      'password': passwordController.text,
+      'city': cityController.text,
+      'favoritePharmacy': pharmacyController.text,
+    };
+    // 'utenti' is the end-point
+    var res = await CallApi().postData(data, 'utenti');
+    var body = jsonDecode(res);
   }
 }
