@@ -92,7 +92,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   _register();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const BottomNavBar()));
-                  // TODO: signup
                 },
                 icon: const Icon(Icons.login),
                 label: const Text("Entra"),

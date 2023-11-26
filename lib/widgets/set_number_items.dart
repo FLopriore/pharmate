@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SetNumberItems extends StatefulWidget {
-  const SetNumberItems({super.key});
+  final Function callBack; // necessary to get numItems on parent widget
+  const SetNumberItems({super.key, required this.callBack});
 
   @override
   State<SetNumberItems> createState() => _SetNumberItemsState();
@@ -21,6 +22,7 @@ class _SetNumberItemsState extends State<SetNumberItems> {
                 : () {
                     setState(() {
                       numItems--;
+                      widget.callBack(numItems);
                     });
                   },
             icon: const Icon(Icons.remove_circle_outline)),
@@ -29,6 +31,7 @@ class _SetNumberItemsState extends State<SetNumberItems> {
             onPressed: () {
               setState(() {
                 numItems++;
+                widget.callBack(numItems);
               });
             },
             icon: const Icon(Icons.add_circle_outline)),
