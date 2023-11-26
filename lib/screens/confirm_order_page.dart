@@ -90,6 +90,7 @@ class ConfirmOrderPage extends StatelessWidget {
                             'item': item,
                             'pharmacy': pharmacy,
                             'qta': _numItems,
+                            'status': 'red',
                           };
                           await CallApi()
                               .postData(data, 'ordini')
