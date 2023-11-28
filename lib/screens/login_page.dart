@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/screens/signup_page.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
+import 'package:pharmate/data/api.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+  
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+
+}
+class _LoginPageState extends State<LoginPage> {
+  bool _isVisible = false;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +40,9 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              const TextField(
-                  decoration: InputDecoration(
+              TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -38,9 +50,10 @@ class LoginPage extends StatelessWidget {
                 labelText: 'Email',
               )),
               const SizedBox(height: 16),
-              const TextField(
+              TextField(
+                  controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     filled: true,
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -48,6 +61,8 @@ class LoginPage extends StatelessWidget {
                     labelText: 'Password',
                   )),
               const SizedBox(height: 20),
+              Visibility(visible:_isVisible, child: const Text('Email o Password errata',style: TextStyle(color: Color(0xff0888fd),fontWeight: FontWeight.bold),),),
+              const SizedBox(height: 20,),
               Center(
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
@@ -55,8 +70,10 @@ class LoginPage extends StatelessWidget {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const BottomNavBar()));
+                    Future<bool> result = _login();
+                    if (result == true){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BottomNavBar()));}
+                    else {_isVisible=true;}
                     // TODO: login
                   },
                   icon: const Icon(Icons.login),
@@ -85,5 +102,16 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+  //TODO:Authentication method
+  Future<bool> _login() async{
+    /*String email_login = emailController.text;
+    String pass_login = passwordController.text;
+    String final_URL = "Utenti?"+"email="+email_login+"&"+"password="+pass_login;
+
+    var responseJson = await CallApi().getData(final_URL);
+    if (responseJson==null){return false;}
+    else{ return true;}*/
+    return true; //
   }
 }

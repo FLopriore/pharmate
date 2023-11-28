@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.interTightTextTheme()),
       //darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       //home: const BottomNavBar(),
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
