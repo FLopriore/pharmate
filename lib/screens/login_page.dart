@@ -41,6 +41,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 50),
               TextField(
+                onTap: () {
+                  setState(() {
+                    _isVisible = false;
+                  });
+                },
                   controller: emailController,
                   decoration: const InputDecoration(
                 filled: true,
@@ -51,6 +56,11 @@ class _LoginPageState extends State<LoginPage> {
               )),
               const SizedBox(height: 16),
               TextField(
+                onTap: () {
+                  setState(() {
+                    _isVisible = false;
+                  });
+                },
                   controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
@@ -71,9 +81,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     Future<bool> result = _login();
-                    if (result == true){Navigator.of(context).push(MaterialPageRoute(
+                    if (result == true){
+                      Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const BottomNavBar()));}
-                    else {_isVisible=true;}
+                    else {
+                      setState(() {
+                        _isVisible = true;
+                      });
+                    }
                     // TODO: login
                   },
                   icon: const Icon(Icons.login),
@@ -105,13 +120,6 @@ class _LoginPageState extends State<LoginPage> {
   }
   //TODO:Authentication method
   Future<bool> _login() async{
-    /*String email_login = emailController.text;
-    String pass_login = passwordController.text;
-    String final_URL = "Utenti?"+"email="+email_login+"&"+"password="+pass_login;
-
-    var responseJson = await CallApi().getData(final_URL);
-    if (responseJson==null){return false;}
-    else{ return true;}*/
-    return true; //
+    return false; 
   }
 }
