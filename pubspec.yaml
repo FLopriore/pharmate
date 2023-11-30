@@ -30,6 +30,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    fonts:
+    - family: OpenDyslexic
+      fonts:
+        - asset: fonts/OpenDyslexic-Regular.otf
+        - asset: fonts/OpenDyslexic-Italic.otf
+          style: italic
+        - asset: fonts/OpenDyslexic-Bold.otf
+          style: bold
+        - asset: fonts/OpenDyslexic-BoldItalic.otf
+          style: boldItalic
 
 
   # The following adds the Cupertino Icons font to your application.
