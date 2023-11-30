@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Center(
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff0888fd),
+                  backgroundColor: const Color(0xff023D74),
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {

@@ -22,7 +22,7 @@ class BuyNowListTile extends StatelessWidget {
               backgroundColor:
                   MaterialStatePropertyAll<Color>(Color(0xffc2daf8)),
               foregroundColor:
-                  MaterialStatePropertyAll<Color>(Color(0xff0888fd))),
+                  MaterialStatePropertyAll<Color>(Color(0xff023D74))),
           onPressed: onPressed,
           icon: const Icon(Icons.shopping_cart_outlined),
           label: const Text("Ordina"),

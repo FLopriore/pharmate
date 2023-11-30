@@ -65,7 +65,7 @@ class _MedicineListViewState extends State<MedicineListView> {
                       });
                     },
                     style: ButtonStyle(
-                        iconColor: MaterialStateProperty.all(const Color(0xff0888FD)))),
+                        iconColor: MaterialStateProperty.all(const Color(0xff023D74)))),
                 children: [
                   for (var i in listPharma)
                     BuyNowListTile(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/screens/signup_page.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
-import 'package:pharmate/data/api.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -76,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff0888fd),
+                    backgroundColor: const Color(0xff023D74),
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
@@ -106,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFCAE6FF),
-                  foregroundColor: const Color(0xFF0888FD),
+                  foregroundColor: const Color(0xFF023D74),
                 ),
                 onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const SignUpPage())),

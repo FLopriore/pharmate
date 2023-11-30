@@ -82,7 +82,7 @@ class ConfirmOrderPage extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff0888fd),
+                          backgroundColor: const Color(0xff023D74),
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () async {
