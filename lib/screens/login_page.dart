@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Password',
                   )),
               const SizedBox(height: 20),
-              Visibility(visible:_isVisible, child: const Text('Email o Password errata',style: TextStyle(color: Color(0xff0888fd),fontWeight: FontWeight.bold),),),
+              Visibility(visible:_isVisible, child: const Text('Email o Password errata',style: TextStyle(color: Color(0xff023D74),fontWeight: FontWeight.bold),),),
               const SizedBox(height: 20,),
               Center(
                 child: ElevatedButton.icon(
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    Future<bool> result = _login();
+                    bool result = true;
                     if (result == true){
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const BottomNavBar()));}
@@ -119,6 +119,6 @@ class _LoginPageState extends State<LoginPage> {
   }
   //TODO:Authentication method
   Future<bool> _login() async{
-    return false; 
+    return true; 
   }
 }
