@@ -18,7 +18,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentPageIndex = 1; // default page is home
+  int currentPageIndex = 0; // default page is home
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.access_time_filled_outlined),
-            icon: Icon(Icons.access_time_outlined),
-            label: 'Promemoria',
-          ),
-          NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
@@ -46,13 +41,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
             icon: Icon(Icons.local_shipping_outlined),
             label: 'I miei ordini',
           ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: 'Profilo',
+          ),
         ],
       ),
       body: SafeArea(
         child: <Widget>[
-          ProfilePage(), // TODO: add "reminder" widget
           const HomePage(),
           const MyOrdersPage(),
+          const ProfilePage(),
         ][currentPageIndex],
       ),
     );

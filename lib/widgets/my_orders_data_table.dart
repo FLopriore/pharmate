@@ -42,7 +42,7 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   numeric: true,
                 ),
                 DataColumn(
-                    label: Text("Status",
+                    label: Text("Stato",
                         style: TextStyle(fontWeight: FontWeight.bold))),
               ],
               rows: List<DataRow>.generate(

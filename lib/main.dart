@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/ui/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pharmate/providers/dark_theme_provider.dart';
+import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,16 +16,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => DarkThemeProvider(),
+      create: (_) => AccessibilityProvider(),
       child: Consumer(
-        builder:(context, DarkThemeProvider themeNotifier, child){
+        builder:(context, AccessibilityProvider themeNotifier, child){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'PharMate',
             theme: ThemeData(
                   useMaterial3: true,
                   colorScheme: lightColorScheme,
-                  textTheme: themeNotifier.darkTheme ? GoogleFonts.lexendDecaTextTheme() : GoogleFonts.interTightTextTheme(),
+                  textTheme: themeNotifier.isAccessibleFont ? GoogleFonts.lexendDecaTextTheme() : GoogleFonts.interTightTextTheme(),
             ),
             home: LoginPage(),
           );

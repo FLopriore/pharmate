@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/providers/dark_theme_provider.dart';
+import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({super.key});
-  
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
-
 }
+
 class _ProfilePageState extends State<ProfilePage> {
+  @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, DarkThemeProvider themeNotifier, child){
-        return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer(builder: (context, AccessibilityProvider themeNotifier, child) {
+      return Scaffold(
+          body: ListView(
         children: [
-          TextButton(
-            onPressed: (){
-            themeNotifier.darkTheme
-                ? themeNotifier.darkTheme = false
-                : themeNotifier.darkTheme = true;
-          }, 
-          child: Text(themeNotifier.darkTheme ? "Ritorna al Font Predefinito" : "Passa a Font Acessibile"), 
-          )
-        ]
-        ),
-    );
-      }
-      );
+          const Text(
+            "Profilo",
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 50,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SwitchListTile(
+            title: Text(themeNotifier.isAccessibleFont
+                ? "Usa il font predefinito"
+                : "Usa un font accessibile"),
+            value: themeNotifier.isAccessibleFont,
+            onChanged: (bool value) {
+              themeNotifier.isAccessibleFont = value;
+            },
+            secondary: const Icon(Icons.font_download_outlined),
+          ),
+        ],
+      ));
+    });
   }
 }
