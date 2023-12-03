@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             textAlign: TextAlign.center,
           ),
-          SwitchListTile(
+          SwitchListTile.adaptive(
             title: Text(themeNotifier.isAccessibleFont
                 ? "Usa il font predefinito"
                 : "Usa un font accessibile"),

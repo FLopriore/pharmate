@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/data/dark_theme_preference.dart';
+import 'package:pharmate/data/accessibility_theme_preference.dart';
 
 class AccessibilityProvider with ChangeNotifier {
   bool _accessibleTheme = false;
