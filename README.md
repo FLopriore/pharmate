@@ -1,6 +1,6 @@
 # pharmate
 
-A new Flutter project.
+Platform to order medicines from local pharmacies, with a particular focus on accessibility.
 
 ## Getting Started
 
