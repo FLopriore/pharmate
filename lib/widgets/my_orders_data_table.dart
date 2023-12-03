@@ -24,40 +24,43 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
       future: myOrdersList,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return DataTable(
-              sortColumnIndex: 0,
-              sortAscending: true,
-              columns: const [
-                DataColumn(
-                  label:
-                      Text("ID", style: TextStyle(fontWeight: FontWeight.bold)),
-                  numeric: true,
-                ),
-                DataColumn(
-                    label: Text("Prodotto",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
-                DataColumn(
-                  label: Text("Qtà",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  numeric: true,
-                ),
-                DataColumn(
-                    label: Text("Stato",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
-              ],
-              rows: List<DataRow>.generate(
-                  snapshot.data!.length,
-                  (int index) => DataRow(cells: <DataCell>[
-                        DataCell(Text(snapshot.data![index].id.toString())),
-                        DataCell(Text(snapshot.data![index].item)),
-                        DataCell(Text(snapshot.data![index].qta.toString())),
-                        DataCell(Center(
-                          child: Icon(
-                            Icons.circle,
-                            color: getStatusColor(snapshot.data![index].status),
-                          ),
-                        ))
-                      ])));
+          return FittedBox(
+            alignment: Alignment.topCenter,
+            child: DataTable(
+                sortColumnIndex: 0,
+                sortAscending: true,
+                columns: const [
+                  DataColumn(
+                    label:
+                        Text("ID", style: TextStyle(fontWeight: FontWeight.bold)),
+                    numeric: true,
+                  ),
+                  DataColumn(
+                      label: Text("Prodotto",
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                    label: Text("Qtà",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    numeric: true,
+                  ),
+                  DataColumn(
+                      label: Text("Stato",
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                ],
+                rows: List<DataRow>.generate(
+                    snapshot.data!.length,
+                    (int index) => DataRow(cells: <DataCell>[
+                          DataCell(Text(snapshot.data![index].id.toString())),
+                          DataCell(Text(snapshot.data![index].item)),
+                          DataCell(Text(snapshot.data![index].qta.toString())),
+                          DataCell(Center(
+                            child: Icon(
+                              Icons.circle,
+                              color: getStatusColor(snapshot.data![index].status),
+                            ),
+                          ))
+                        ]))),
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
