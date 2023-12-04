@@ -8,14 +8,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 20),
-          Align(
+          const SizedBox(height: 20),
+          const Align(
             alignment: Alignment.center,
             child: Text(
               "Cerca Farmaco",
+              semanticsLabel: "Pagina per ordinare i farmaci",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 45,
@@ -24,18 +25,19 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          CustomSearchBar.withPageRoute(page: SearchResultsPage()),
-          SizedBox(height: 60),
-          Text(
+          Semantics(label: "Inserisci il farmaco da cercare e premi Invio",textField: true,child: ExcludeSemantics(child: CustomSearchBar.withPageRoute(page: SearchResultsPage()),),),
+          const SizedBox(height: 60),
+          const Text(
             "Acquista subito",
+            semanticsLabel: "Lista per gli acquisti rapidi di seguito",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
               color: Colors.black,
             ),
           ),
-          Expanded(child: BuyNowListView()),
-          SizedBox(height: 60),
+          Expanded(child: BuyNowListView()), //TODO: Add semantics directly to list tiles
+          const SizedBox(height: 60),
         ],
       ),
     );

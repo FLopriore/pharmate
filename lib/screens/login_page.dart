@@ -18,14 +18,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const ExcludeSemantics(child:SizedBox(height: 100),), 
               const Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -40,7 +38,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const ExcludeSemantics(child: SizedBox(height: 50),),
-              TextField(
+              Semantics(label: "Inserisci ",
+              textField: false,
+              child: TextField(
                 onTap: () {
                   setState(() {
                     _isVisible = false;
@@ -54,8 +54,10 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.all(Radius.circular(40))),
                 labelText: 'Email',
               )),
+              ),
               const ExcludeSemantics(child:SizedBox(height: 16),), 
-              TextField(
+              Semantics(label: "Inserisci",
+              child:TextField(
                 onTap: () {
                   setState(() {
                     _isVisible = false;
@@ -70,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(Radius.circular(40))),
                     labelText: 'Password',
                   )),
+              ),
               const SizedBox(height: 20),
               Visibility(visible:_isVisible, child: const Text('Email o Password errata',style: TextStyle(color: Color(0xff023D74),fontWeight: FontWeight.bold),),),
               const SizedBox(height: 20,),
@@ -96,12 +99,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 80),
-              const Text(
+              const ExcludeSemantics(child: 
+                Text(
                 "Primo accesso?",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
                 ),
+              ),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
