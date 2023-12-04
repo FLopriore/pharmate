@@ -6,11 +6,11 @@ import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+   const MyApp({super.key});
   
   // This widget is the root of your application.
   @override
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
                   colorScheme: lightColorScheme,
                   textTheme: themeNotifier.isAccessibleFont ? GoogleFonts.lexendDecaTextTheme() : GoogleFonts.interTightTextTheme(),
             ),
-            home: LoginPage(),
+            home: const LoginPage(),
           );
         }
       ),
