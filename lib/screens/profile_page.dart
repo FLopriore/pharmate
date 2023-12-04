@@ -18,6 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const Text(
             "Profilo",
+            semanticsLabel: "Pagina Profilo",
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: 50,
@@ -25,7 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             textAlign: TextAlign.center,
           ),
-          SwitchListTile.adaptive(
+          //the switch tile is useless for the semantics
+          ExcludeSemantics(child: SwitchListTile.adaptive(
             title: Text(themeNotifier.isAccessibleFont
                 ? "Usa il font predefinito"
                 : "Usa un font accessibile"),
@@ -34,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
               themeNotifier.isAccessibleFont = value;
             },
             secondary: const Icon(Icons.font_download_outlined),
-          ),
+          ),)
         ],
       ));
     });

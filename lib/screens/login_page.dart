@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.center,
                 child: Text(
                   "Accedi",
+                  semanticsLabel: "Pagina di accesso",
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 50,
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 50),
+              const ExcludeSemantics(child: SizedBox(height: 50),),
               TextField(
                 onTap: () {
                   setState(() {
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.all(Radius.circular(40))),
                 labelText: 'Email',
               )),
-              const SizedBox(height: 16),
+              const ExcludeSemantics(child:SizedBox(height: 16),), 
               TextField(
                 onTap: () {
                   setState(() {
