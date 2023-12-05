@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/screens/login_page.dart';
+import 'package:pharmate/screens/search_results_page.dart';
 import 'package:pharmate/ui/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';

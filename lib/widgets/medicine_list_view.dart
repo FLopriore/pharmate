@@ -48,7 +48,7 @@ class _MedicineListViewState extends State<MedicineListView> {
 
               return ExpansionTile(
                 shape: Border.all(color: Colors.transparent),
-                title: Text(element),
+                title: Semantics(onTapHint: "Tocca per scegliere la farmacia dal quale ordinare",child:Text(element,semanticsLabel: "Ordina $element",),),
                 leading: IconButton(
                     icon: (isFavorite)
                         ? const Icon(Icons.grade)
@@ -68,7 +68,9 @@ class _MedicineListViewState extends State<MedicineListView> {
                         iconColor: MaterialStateProperty.all(const Color(0xff023D74)))),
                 children: [
                   for (var i in listPharma)
-                    BuyNowListTile(
+                    Semantics(
+                      label: "Premi per ordinare dalla farmacia",
+                      child:BuyNowListTile(
                       title: i.toString(),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -78,6 +80,7 @@ class _MedicineListViewState extends State<MedicineListView> {
                             )));
                       },
                     )
+                      ),
                 ], //TODO: add pharmas that have medicine
               );
             }),

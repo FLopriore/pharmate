@@ -19,15 +19,13 @@ class ConfirmOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
         body: ListView(
           children: [
             const Align(
               alignment: Alignment.center,
               child: Text(
                 "Riepilogo Ordine",
+                semanticsLabel: "Riepilogo del tuo ordine di seguito",
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 50,
@@ -36,7 +34,7 @@ class ConfirmOrderPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 40),
+            const ExcludeSemantics(child:SizedBox(height: 40),),
             SizedBox(
               height: 300,
               child: RoundedBackgroundRectangle(
@@ -46,11 +44,12 @@ class ConfirmOrderPage extends StatelessWidget {
                   const Padding(
                     padding:
                         EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-                    child: Text("Prodotto:"),
+                    child: ExcludeSemantics(child:Text("Prodotto:"),)
                   ),
                   ListTile(
                     title: Text(
                       item,
+                      semanticsLabel: "Stai ordinato il prodotto: $item",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -65,12 +64,13 @@ class ConfirmOrderPage extends StatelessWidget {
                   const Padding(
                     padding:
                         EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-                    child: Text("Farmacia:"),
+                    child: ExcludeSemantics(child:Text("Farmacia:"),),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       pharmacy,
+                      semanticsLabel: "Stai ordinando dalla farmacia $pharmacy",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -115,7 +115,7 @@ class ConfirmOrderPage extends StatelessWidget {
                             }
                           });
                         },
-                        child: const Text("Conferma Ordine")),
+                        child: const Text("Conferma Ordine",)),
                   )
                 ],
               )),

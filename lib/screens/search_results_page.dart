@@ -8,11 +8,9 @@ class SearchResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
-      body: const Column(
+      body: Column(
         children: [
+          const SizedBox(height: 30,),
           Align(
             alignment: 
             Alignment.center,
@@ -22,17 +20,19 @@ class SearchResultsPage extends StatelessWidget {
             textAlign: TextAlign.center,
                 ),
           ),
-          CustomSearchBar(),
+          Semantics(label: "Inserisci il farmaco da cercare",hint: "Premi invio per cercare",
+          textField: true,child: ExcludeSemantics(child: CustomSearchBar(),)),
           SizedBox(height: 40),
           Text(
             "Risultati",
+            semanticsLabel: "Risultati della Ricerca di Seguito",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
               color: Colors.black,
             ),
           ),
-          Expanded(child: MedicineListView()),
+          Expanded(child: MedicineListView()), //TODO: Add Semantics to List view
           SizedBox(height: 20),
         ]
       )

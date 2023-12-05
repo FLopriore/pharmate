@@ -15,6 +15,7 @@ class MyOrdersPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "I miei ordini",
+              semanticsLabel: "Pagina per gestire gli ordini",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 60,
@@ -26,7 +27,7 @@ class MyOrdersPage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 30),
-              child: RoundedBackgroundRectangle(child: MyOrdersDataTable()),
+              child: RoundedBackgroundRectangle(child: MyOrdersDataTable()), //TODO: Add Semantic for every tile
             ),
           )
         ],

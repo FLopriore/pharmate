@@ -25,7 +25,8 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Semantics(label: "Inserisci il farmaco da cercare e premi Invio",textField: true,child: ExcludeSemantics(child: CustomSearchBar.withPageRoute(page: SearchResultsPage()),),),
+          Semantics(label: "Inserisci il farmaco da cercare",hint: "Premi invio per cercare",
+          textField: true,child: ExcludeSemantics(child: CustomSearchBar.withPageRoute(page: SearchResultsPage()),),),
           const SizedBox(height: 60),
           const Text(
             "Acquista subito",

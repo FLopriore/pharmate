@@ -7,7 +7,7 @@ import 'package:pharmate/screens/profile_page.dart';
 * This widget is a navigation bar shown on the bottom of the screen.
 * You can select one of these pages:
 *   - Home (default)
-*   - Reminder
+*   - Profile
 *   - My orders
 * */
 class BottomNavBar extends StatefulWidget {
@@ -31,17 +31,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(
+           NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
-          NavigationDestination(
+           NavigationDestination(
             selectedIcon: Icon(Icons.local_shipping),
             icon: Icon(Icons.local_shipping_outlined),
             label: 'I miei ordini',
           ),
-          NavigationDestination(
+           NavigationDestination(
             selectedIcon: Icon(Icons.person),
             icon: Icon(Icons.person_outline),
             label: 'Profilo',
