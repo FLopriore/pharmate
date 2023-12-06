@@ -46,10 +46,17 @@ class _MedicineListViewState extends State<MedicineListView> {
               String element = searchResultsList.elementAt(index);
               bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
 
-              return ExpansionTile(
+              return Semantics(
+                explicitChildNodes: true,
+                child:ExpansionTile(
                 shape: Border.all(color: Colors.transparent),
                 title: Semantics(onTapHint: "Tocca per scegliere la farmacia dal quale ordinare",child:Text(element,semanticsLabel: "Ordina $element",),),
-                leading: IconButton(
+                leading: Semantics(
+                  label: "Aggiungi ai preferiti",
+                  button: true,
+                  container: true,
+                  explicitChildNodes: true,
+                  child: ExcludeSemantics(child:IconButton(
                     icon: (isFavorite)
                         ? const Icon(Icons.grade)
                         : const Icon(Icons.grade_outlined),
@@ -66,6 +73,7 @@ class _MedicineListViewState extends State<MedicineListView> {
                     },
                     style: ButtonStyle(
                         iconColor: MaterialStateProperty.all(const Color(0xff023D74)))),
+                ),),
                 children: [
                   for (var i in listPharma)
                     Semantics(
@@ -82,6 +90,7 @@ class _MedicineListViewState extends State<MedicineListView> {
                     )
                       ),
                 ], //TODO: add pharmas that have medicine
+              )
               );
             }),
     );

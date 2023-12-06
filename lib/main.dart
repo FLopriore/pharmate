@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: Consumer(
         builder:(context, AccessibilityProvider themeNotifier, child){
           return MaterialApp(
-            showSemanticsDebugger: false, //IMPOSTA A TRUE PER VEDERE LA SEMANTICA
+            showSemanticsDebugger: true, //IMPOSTA A TRUE PER VEDERE LA SEMANTICA
             debugShowCheckedModeBanner: false,
             title: 'PharMate',
             theme: ThemeData(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                   colorScheme: lightColorScheme,
                   textTheme: themeNotifier.isAccessibleFont ? GoogleFonts.lexendDecaTextTheme() : GoogleFonts.interTightTextTheme(),
             ),
-            home: const LoginPage(),
+            home: const SearchResultsPage(),
           );
         }
       ),

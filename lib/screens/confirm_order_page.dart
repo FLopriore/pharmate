@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:pharmate/widgets/set_number_items.dart';
@@ -7,8 +8,10 @@ class ConfirmOrderPage extends StatelessWidget {
   final String item;
   final String pharmacy;
   static int _numItems = 1;
+  final TextEditingController controller = TextEditingController();
+  
 
-  const ConfirmOrderPage({super.key, required this.item, required this.pharmacy});
+  ConfirmOrderPage({super.key, required this.item, required this.pharmacy});
 
   // Used to get value from child widget.
   // I didn't use any state management packages in order not to over-engineer.
@@ -18,6 +21,7 @@ class ConfirmOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool accessibleNavigation = MediaQuery.of(context).accessibleNavigation;
     return Scaffold(
         body: ListView(
           children: [
@@ -56,10 +60,11 @@ class ConfirmOrderPage extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    trailing: SizedBox(
+                    trailing: Visibility(visible: accessibleNavigation ? false : true,
+                    child:SizedBox(
                       width: 120,
                       child: SetNumberItems(callBack: callBack),
-                    ),
+                    ),),
                   ),
                   const Padding(
                     padding:
@@ -80,6 +85,18 @@ class ConfirmOrderPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   Center(
+                    child: Visibility(
+                      visible: accessibleNavigation ? true : false,
+                      child:Semantics(label: "Inserisci il numero di prodotti da ordinare",
+                      child:TextField(
+                        maxLength: 2,
+                        controller:controller ,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ))),
+                  ),
+                  Center(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff023D74),
@@ -89,7 +106,7 @@ class ConfirmOrderPage extends StatelessWidget {
                           var data = {
                             'item': item,
                             'pharmacy': pharmacy,
-                            'qta': _numItems,
+                            'qta': accessibleNavigation ? controller.text : _numItems,
                             'status': 'red',
                           };
                           await CallApi()
