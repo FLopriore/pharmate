@@ -115,9 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     var response = await CallApi().postData(data, 'auth/signup');
     if (response.statusCode == 200) {
-      var responseJson =
-          jsonDecode(await response.transform(utf8.decoder).join());
-      ;
+      var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
 
       // Store login data in secure storage
       const storage = FlutterSecureStorage();
