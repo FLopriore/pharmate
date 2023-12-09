@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -13,11 +15,15 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController cfController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController pharmacyController = TextEditingController();
-  Future getFCMToken() async {final fcmToken = await FirebaseMessaging.instance.getToken();} //TODO: Send FCM Token to server
+
+  bool _isSignUpSuccessful = false;
+
+  Future getFCMToken() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+  } //TODO: Send FCM Token to server
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +48,25 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             const SizedBox(height: 20),
-            const LoginText(text: "Email"),
+            const LoginText(text: "Nome"),
             TextField(
-                controller: emailController,
+                controller: nameController,
                 decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'prova@email.com',
+                  hintText: 'Es. Mario Rossi',
+                )),
+            const LoginText(text: "Codice Fiscale"),
+            TextField(
+                controller: cfController,
+                decoration: const InputDecoration(
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  hintText: 'Inserisci il tuo codice fiscale',
                 )),
             const LoginText(text: "Password"),
             TextField(
@@ -63,26 +79,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       borderRadius: BorderRadius.all(Radius.circular(40))),
                   hintText: 'Inserisci password',
                 )),
-            const LoginText(text: "Città di riferimento"),
-            TextField(
-                controller: cityController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Es. Bari',
-                )),
-            const LoginText(text: "Farmacia di fiducia"),
-            TextField(
-                controller: pharmacyController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Es. Farmacia del Cambio',
-                )),
             const SizedBox(height: 16),
             Center(
               child: ElevatedButton.icon(
@@ -92,8 +88,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {
                   _register();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const BottomNavBar()));
+                  if (_isSignUpSuccessful) {
+                    // TODO: add page to add favorite pharmacy
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BottomNavBar()));
+                  }
                 },
                 icon: const Icon(Icons.login),
                 label: const Text("Entra"),
@@ -105,21 +104,26 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // Returns true if login was successful
   void _register() async {
     var data = {
-      'email': emailController.text,
+      'fullname': nameController.text,
       'password': passwordController.text,
-      'city': cityController.text,
-      'favoritePharmacy': pharmacyController.text,
+      'cf': cfController.text,
+      // TODO: add Firebase token
     };
-    // 'utenti' is the end-point
-    var responseJson = await CallApi().postData(data, 'utenti');
 
-    // Store login data in secure storage
-    const storage = FlutterSecureStorage();
-    await storage.write(key: 'email', value: responseJson['email']);
-    await storage.write(key: 'password', value: responseJson['password']);
-    await storage.write(key: 'city', value: responseJson['city']);
-    await storage.write(key: 'pharmacy', value: responseJson['pharmacy']);
+    var response = await CallApi().postData(data, 'auth/signup');
+    if (response.statusCode == 200) {
+      var responseJson =
+          jsonDecode(await response.transform(utf8.decoder).join());
+      ;
+
+      // Store login data in secure storage
+      const storage = FlutterSecureStorage();
+      await storage.write(key: 'loginToken', value: responseJson['token']);
+      // TODO: add Firebase token
+      _isSignUpSuccessful = true;
+    }
   }
 }
