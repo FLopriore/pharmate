@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "731572356696",
+    "project_id": "pharmate-968eb",
+    "storage_bucket": "pharmate-968eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731572356696:android:746b83ff9b199053222c2d",
+        "android_client_info": {
+          "package_name": "com.fff.pharmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsG1jT4W5MRxJWjO4HabUKtQBtT9JmP_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

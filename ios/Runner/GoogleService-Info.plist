@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyChPWw7-cle9gmeK7wQdM2bU_8KHLXtCq0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>731572356696</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.fff.pharmate</string>
+	<key>PROJECT_ID</key>
+	<string>pharmate-968eb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pharmate-968eb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:731572356696:ios:6f9f7fe0d6166d73222c2d</string>
+</dict>
+</plist>

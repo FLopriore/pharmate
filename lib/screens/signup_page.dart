@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
@@ -16,6 +17,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController pharmacyController = TextEditingController();
+  Future getFCMToken() async {final fcmToken = await FirebaseMessaging.instance.getToken();} //TODO: Send FCM Token to server
 
   @override
   Widget build(BuildContext context) {
