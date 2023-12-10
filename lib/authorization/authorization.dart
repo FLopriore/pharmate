@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:pharmate/data/login_secure_storage.dart';
+import 'package:pharmate/authorization/login_secure_storage.dart';
 
 class Authorization {
   final String _url = "https://feddynventor.ddns.net/pharm8/";

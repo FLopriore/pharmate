@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
-import 'package:pharmate/data/login_secure_storage.dart';
+import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 
@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
     String? token =
         await LoginSecureStorage.getLoginSecureStorage('loginToken');
     if (token != null && token.isNotEmpty) {
-      // Test if
+      // Test if the token corresponds to an existing user.
       await CallApi().getData('users/me').then((value) {
         if (value != null) {
           Navigator.of(context).push(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/data/authorization.dart';
+import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/login_text.dart';
 
