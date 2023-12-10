@@ -25,8 +25,14 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Semantics(label: "Inserisci il farmaco da cercare",hint: "Premi invio per cercare",
-          textField: true,child: ExcludeSemantics(child: CustomSearchBar.withPageRoute(page: SearchResultsPage()),),),
+          Semantics(
+            label: "Inserisci il farmaco da cercare",
+            hint: "Premi invio per cercare",
+            textField: true,
+            child: const ExcludeSemantics(
+              child: CustomSearchBar.withPageRoute(page: SearchResultsPage()),
+            ),
+          ),
           const SizedBox(height: 60),
           const Text(
             "Acquista subito",
@@ -37,7 +43,7 @@ class HomePage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          Expanded(child: BuyNowListView()), //TODO: Add semantics directly to list tiles
+          const Expanded(child: BuyNowListView()), //TODO: Add semantics directly to list tiles
           const SizedBox(height: 60),
         ],
       ),
