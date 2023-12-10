@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pharmate/data/login_secure_storage.dart';
 
 class Authorization {
   final String _url = "https://feddynventor.ddns.net/pharm8/";
@@ -30,7 +30,7 @@ class Authorization {
 
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
-      _storeLoginSecureStorage('loginToken', responseJson['token']);
+      LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
       // TODO: store FCM token
       return true;
     }
@@ -57,16 +57,10 @@ class Authorization {
     HttpClientResponse result = await request.close();
     if (result.statusCode == 200) {
       var responseJson = jsonDecode(await result.transform(utf8.decoder).join());
-      _storeLoginSecureStorage('loginToken', responseJson['token']);
+      LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
       // TODO: store FCM token
       return true;
     }
     return false;
-  }
-
-  // Stores login data in secure storage.
-  void _storeLoginSecureStorage(String key, String value) async {
-    const storage = FlutterSecureStorage();
-    await storage.write(key: key, value: value);
   }
 }

@@ -14,6 +14,8 @@ class CallApi {
 
     HttpClientRequest request = await client.postUrl(Uri.parse(fullUrl));
     request.headers.set('Content-Type', 'application/json');
+    request.headers.set('accept', '*/*');
+    // TODO: add token
     request.headers.set('authorization', 'Bearer cicciopasticcio1920');
     request.add(utf8.encode(jsonEncode(data)));
     HttpClientResponse result = await request.close();
@@ -34,6 +36,8 @@ class CallApi {
 
     HttpClientRequest request = await client.getUrl(Uri.parse(fullUrl));
     request.headers.set('Content-Type', 'application/json');
+    request.headers.set('accept', '*/*');
+    // TODO: add token
     request.headers.set('authorization', 'Bearer cicciopasticcio1920');
     HttpClientResponse result = await request.close();
 
