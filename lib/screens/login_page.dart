@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/data/authorization.dart';
 import 'package:pharmate/screens/signup_page.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 
@@ -99,18 +100,19 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: const Color(0xff023D74),
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {
-                    // TODO: login hereeeeee
-                    bool result = true;
-                    
-                    if (result == true) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const BottomNavBar()));
-                    } else {
-                      setState(() {
-                        _isVisible = true;
-                      });
-                    }
+                  onPressed: () async {
+                    await Authorization()
+                        .login(cfController.text, passwordController.text)
+                        .then((result) {
+                      if (result) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const BottomNavBar()));
+                      } else {
+                        setState(() {
+                          _isVisible = true;
+                        });
+                      }
+                    });
                   },
                   icon: const Icon(Icons.login),
                   label: const Text("Entra"),
@@ -140,10 +142,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  //TODO:Authentication method
-  Future<bool> _login() async {
-    return true;
   }
 }

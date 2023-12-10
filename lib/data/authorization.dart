@@ -30,12 +30,43 @@ class Authorization {
 
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
-
-      // Store login data in secure storage
-      const storage = FlutterSecureStorage();
-      await storage.write(key: 'loginToken', value: responseJson['token']);
+      _storeLoginSecureStorage('loginToken', responseJson['token']);
+      // TODO: store FCM token
       return true;
     }
     return false;
+  }
+
+  // Login
+  Future<bool> login(String cf, String password) async {
+    String fullUrl = '${_url}auth/login';
+
+    var data = {
+      "cf": cf,
+      "password": password,
+    };
+
+    HttpClient client = HttpClient();
+    // Bypass SSL certification
+    client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+
+    HttpClientRequest request = await client.postUrl(Uri.parse(fullUrl));
+    request.headers.set('Content-Type', 'application/json');
+    request.headers.set('accept', '*/*');
+    request.add(utf8.encode(jsonEncode(data)));
+    HttpClientResponse result = await request.close();
+    if (result.statusCode == 200) {
+      var responseJson = jsonDecode(await result.transform(utf8.decoder).join());
+      _storeLoginSecureStorage('loginToken', responseJson['token']);
+      // TODO: store FCM token
+      return true;
+    }
+    return false;
+  }
+
+  // Stores login data in secure storage.
+  void _storeLoginSecureStorage(String key, String value) async {
+    const storage = FlutterSecureStorage();
+    await storage.write(key: key, value: value);
   }
 }
