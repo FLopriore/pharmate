@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pharmate/data/api.dart';
+import 'package:pharmate/data/authorization.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/login_text.dart';
 
@@ -103,8 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-
-  // Returns true if login was successful
+  
   void _register() async {
     var data = {
       'fullname': nameController.text,
@@ -112,8 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
       'cf': cfController.text,
       // TODO: add Firebase token
     };
-
-    var response = await CallApi().postData(data, 'auth/signup');
+    var response = await Authorization().signUp(data);
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
 
