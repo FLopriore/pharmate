@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pharmate/data/authorization.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/login_text.dart';
@@ -18,12 +14,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController cfController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  bool _isSignUpSuccessful = false;
-
-  Future getFCMToken() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-  } //TODO: Send FCM Token to server
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +76,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   backgroundColor: const Color(0xff023D74),
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () {
-                  _register();
-                  if (_isSignUpSuccessful) {
-                    // TODO: add page to add favorite pharmacy
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const BottomNavBar()));
-                  }
+                onPressed: () async {
+                  var data = {
+                    'fullname': nameController.text,
+                    'password': passwordController.text,
+                    'cf': cfController.text,
+                    // TODO: add Firebase token
+                  };
+
+                  await Authorization().signUp(data).then((bool success) {
+                    if (success) {
+                      // TODO: push to page to select favorite pharmacy
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const BottomNavBar()));
+                    } // TODO: add dialog to show signup error
+                  });
                 },
                 icon: const Icon(Icons.login),
                 label: const Text("Entra"),
@@ -102,24 +100,5 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
-  }
-  
-  void _register() async {
-    var data = {
-      'fullname': nameController.text,
-      'password': passwordController.text,
-      'cf': cfController.text,
-      // TODO: add Firebase token
-    };
-    var response = await Authorization().signUp(data);
-    if (response.statusCode == 200) {
-      var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
-
-      // Store login data in secure storage
-      const storage = FlutterSecureStorage();
-      await storage.write(key: 'loginToken', value: responseJson['token']);
-      // TODO: add Firebase token
-      _isSignUpSuccessful = true;
-    }
   }
 }

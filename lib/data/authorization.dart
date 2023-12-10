@@ -1,13 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 class Authorization {
   final String _url = "https://feddynventor.ddns.net/pharm8/";
 
-  // Sign up.
-  // Returns a token which identifies the user.
-  // The token is stored in local data and is used to login later.
-  Future<HttpClientResponse> signUp(data) async {
+  Future _getFCMToken() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+  } //TODO: Send FCM Token to server
+
+  // Sign up
+  // Returns true if signup was successful.
+  // The token is stored in secure storage and is used to login later.
+  Future<bool> signUp(data) async {
+    // TODO: add Firebase token
     String fullUrl = '${_url}auth/signup';
 
     HttpClient client = HttpClient();
@@ -18,8 +26,16 @@ class Authorization {
     request.headers.set('Content-Type', 'application/json');
     request.headers.set('accept', '*/*');
     request.add(utf8.encode(jsonEncode(data)));
-    HttpClientResponse result = await request.close();
+    HttpClientResponse response = await request.close();
 
-    return result;
+    if (response.statusCode == 200) {
+      var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
+
+      // Store login data in secure storage
+      const storage = FlutterSecureStorage();
+      await storage.write(key: 'loginToken', value: responseJson['token']);
+      return true;
+    }
+    return false;
   }
 }
