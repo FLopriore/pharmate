@@ -19,7 +19,7 @@ class CallApi {
     request.headers.set('accept', '*/*');
 
     String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
-    request.headers.set('authorization', 'Bearer ${token!}');
+    request.headers.set('Authorization', 'Bearer ${token!}');
     request.add(utf8.encode(jsonEncode(data)));
     HttpClientResponse result = await request.close();
 
@@ -42,7 +42,7 @@ class CallApi {
     request.headers.set('accept', '*/*');
 
     String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
-    request.headers.set('authorization', 'Bearer ${token!}');
+    request.headers.set('Authorization', 'Bearer ${token!}');
     HttpClientResponse result = await request.close();
 
     if (result.statusCode == 200) {

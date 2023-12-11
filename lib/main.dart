@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/screens/splash_page.dart';
 import 'package:pharmate/ui/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,8 +28,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => AccessibilityProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AccessibilityProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
+      ],
       child: Consumer(
           builder: (context, AccessibilityProvider themeNotifier, child) {
         return MaterialApp(

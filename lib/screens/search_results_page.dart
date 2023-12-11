@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/widgets/custom_search_bar.dart';
 import 'package:pharmate/widgets/medicine_list_view.dart';
+import 'package:provider/provider.dart';
 
 class SearchResultsPage extends StatelessWidget {
   const SearchResultsPage({super.key});
@@ -24,7 +26,9 @@ class SearchResultsPage extends StatelessWidget {
               label: "Inserisci il farmaco da cercare",
               hint: "Premi invio per cercare",
               textField: true,
-              child: const ExcludeSemantics(child: CustomSearchBar()),
+              child: ExcludeSemantics(child: CustomSearchBar(
+                text: context.watch<SearchProvider>().searchText
+              )),
           ),
           const SizedBox(height: 40),
           const Text(
