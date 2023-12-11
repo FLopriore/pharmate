@@ -11,8 +11,11 @@ class AccessibilityProvider with ChangeNotifier {
   }
 
   getPreferences() async{
-    _accessibleTheme = (await accessibleThemePreference.getTheme())!;
-    notifyListeners();
+    bool? getAccessibleTheme = await accessibleThemePreference.getTheme();
+    if (getAccessibleTheme != null) {
+      _accessibleTheme = getAccessibleTheme;
+      notifyListeners();
+    }
   }
 
   set isAccessibleFont(bool value) {
