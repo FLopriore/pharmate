@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pharmate/authorization/login_secure_storage.dart';
+
 class CallApi {
   final String _url = "https://feddynventor.ddns.net/pharm8/";
 
@@ -15,8 +17,9 @@ class CallApi {
     HttpClientRequest request = await client.postUrl(Uri.parse(fullUrl));
     request.headers.set('Content-Type', 'application/json');
     request.headers.set('accept', '*/*');
-    // TODO: add token
-    request.headers.set('authorization', 'Bearer cicciopasticcio1920');
+
+    String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
+    request.headers.set('authorization', 'Bearer ${token!}');
     request.add(utf8.encode(jsonEncode(data)));
     HttpClientResponse result = await request.close();
 
@@ -37,14 +40,14 @@ class CallApi {
     HttpClientRequest request = await client.getUrl(Uri.parse(fullUrl));
     request.headers.set('Content-Type', 'application/json');
     request.headers.set('accept', '*/*');
-    // TODO: add token
-    request.headers.set('authorization', 'Bearer cicciopasticcio1920');
+
+    String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
+    request.headers.set('authorization', 'Bearer ${token!}');
     HttpClientResponse result = await request.close();
 
     if (result.statusCode == 200) {
       return jsonDecode(await result.transform(utf8.decoder).join());
-    } else {
-      return null;
     }
+    return null;
   }
 }
