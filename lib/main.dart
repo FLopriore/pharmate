@@ -17,8 +17,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  log("FCMToken $fcmToken");
+
+  // Request permissions necessary for the notifications.
+  FirebaseMessaging fm = FirebaseMessaging.instance;
+  fm.requestPermission();
+
   runApp(const MyApp());
 }
 

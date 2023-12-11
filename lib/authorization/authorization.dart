@@ -7,15 +7,22 @@ import 'package:pharmate/authorization/login_secure_storage.dart';
 class Authorization {
   final String _url = "https://feddynventor.ddns.net/pharm8/";
 
-  Future _getFCMToken() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-  } //TODO: Send FCM Token to server
+  Future<String?> _getFCMToken() async {
+    return await FirebaseMessaging.instance.getToken();
+  }
 
   // Sign up
   // Returns true if signup was successful.
   // The token is stored in secure storage and is used to login later.
-  Future<bool> signUp(data) async {
-    // TODO: add Firebase token
+  Future<bool> signUp(String name, String password, String cf) async {
+    String? firebaseToken = await _getFCMToken();
+    var data = {
+      'fullname': name,
+      'password': password,
+      'cf': cf,
+      "firebase_token": firebaseToken,
+    };
+
     String fullUrl = '${_url}auth/signup';
 
     HttpClient client = HttpClient();
@@ -31,7 +38,6 @@ class Authorization {
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
       LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
-      // TODO: store FCM token
       return true;
     }
     return false;
@@ -40,10 +46,11 @@ class Authorization {
   // Login
   Future<bool> login(String cf, String password) async {
     String fullUrl = '${_url}auth/login';
-
+    String? firebaseToken = await _getFCMToken();
     var data = {
       "cf": cf,
       "password": password,
+      "firebase_token": firebaseToken,
     };
 
     HttpClient client = HttpClient();
@@ -58,7 +65,6 @@ class Authorization {
     if (result.statusCode == 200) {
       var responseJson = jsonDecode(await result.transform(utf8.decoder).join());
       LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
-      // TODO: store FCM token
       return true;
     }
     return false;

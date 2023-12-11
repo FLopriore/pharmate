@@ -77,14 +77,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () async {
-                  var data = {
-                    'fullname': nameController.text,
-                    'password': passwordController.text,
-                    'cf': cfController.text,
-                    // TODO: add Firebase token
-                  };
-
-                  await Authorization().signUp(data).then((bool success) {
+                  await Authorization()
+                      .signUp(nameController.text, passwordController.text,
+                          cfController.text)
+                      .then((bool success) {
                     if (success) {
                       // TODO: push to page to select favorite pharmacy
                       Navigator.of(context).push(MaterialPageRoute(
