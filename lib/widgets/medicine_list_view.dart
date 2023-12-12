@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
+import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
 import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/screens/confirm_order_page.dart';
@@ -18,11 +19,7 @@ class MedicineListView extends StatefulWidget {
 class _MedicineListViewState extends State<MedicineListView> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List<Medicine> searchResultsList = [];
-  final List<String> listPharma = [
-    'Farmacia Del Cambio',
-    'Farmacia Calia',
-    'Open Pharma'
-  ]; //TODO: Replace with DB Pharmas
+  List<AvailMedicine> listPharma = []; //TODO: Replace with DB Pharmas
   List<String> _favList = [];
 
   @override
@@ -40,12 +37,24 @@ class _MedicineListViewState extends State<MedicineListView> {
   }
 
   void _searchMedicines(String searchText) async {
-    var responseJson = await CallApi().getData("prodotti/search?nome=$searchText");
+    var responseJson =
+        await CallApi().getData("prodotti/search?nome=$searchText");
     if (responseJson != null) {
       List<Medicine> searchResults = List<Medicine>.from(
           responseJson.map((model) => Medicine.fromJson(model)));
       setState(() {
         searchResultsList = searchResults;
+      });
+    }
+  }
+
+  void _searchPharmacies(String codiceAic) async {
+    var responseJson = await CallApi().getData("prodotti/avail/$codiceAic");
+    if (responseJson != null) {
+      List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
+          responseJson.map((model) => AvailMedicine.fromJson(model)));
+      setState(() {
+        listPharma = pharmacies;
       });
     }
   }
@@ -107,17 +116,24 @@ class _MedicineListViewState extends State<MedicineListView> {
                                   const Color(0xff023D74)))),
                     ),
                   ),
+                  onExpansionChanged: (value) {
+                    if (value) {
+                      _searchPharmacies(
+                          searchResultsList.elementAt(index).codice_aic);
+                    }
+                  },
                   children: [
                     for (var i in listPharma)
                       Semantics(
                           label: "Premi per ordinare dalla farmacia",
                           child: BuyNowListTile(
-                            title: i.toString(),
+                            title: i.f.nome,
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ConfirmOrderPage(
                                         item: element,
-                                        pharmacy: i.toString(),
+                                        pharmacy: i.f.nome,
+                                        maxAvailQuantity: i.qt,
                                       )));
                             },
                           )),

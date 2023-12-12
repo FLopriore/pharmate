@@ -47,7 +47,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 10.0)),
           onSubmitted: (String str) {
-            search.searchText = controller.text;
+            search.setSearchText(controller.text);
             if (widget._withRoute == true) {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => widget.page));

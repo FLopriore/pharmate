@@ -53,8 +53,9 @@ class _BuyNowListViewState extends State<BuyNowListView> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ConfirmOrderPage(
                           item: favoriteMedicinesList[index],
-                          // TODO: get favorite pharmacy from DB
+                          // TODO: get favorite pharmacy and qta from DB
                           pharmacy: "Farmacia del Cambio",
+                          maxAvailQuantity: 100000,
                         )));
               },
             );
