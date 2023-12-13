@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
+import 'package:pharmate/widgets/profile_text.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,6 +17,24 @@ class _ProfilePageState extends State<ProfilePage> {
       return Scaffold(
           body: ListView(
         children: [
+          SizedBox(
+              width: 500,
+              height: 250,
+              child: GridView.count(
+                shrinkWrap: true,
+                primary: false,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 10,
+                childAspectRatio: 5,
+                crossAxisCount: 2,
+                children: const <Widget>[
+                  ProfileText(title: 'Città: ', textAlign: TextAlign.end),
+                  ProfileText(title: 'Bari', textAlign: TextAlign.start), // TODO: add data from DB
+                  ProfileText(title: 'Codice Fiscale: ', textAlign: TextAlign.end),
+                  ProfileText(title: 'N0NCH0S0RD1', textAlign: TextAlign.start), // TODO: add data from DB
+                ],
+              ),
+            ),
           const Text(
             "Profilo",
             semanticsLabel: "Pagina Profilo",
