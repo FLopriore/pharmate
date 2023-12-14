@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/screens/login_page.dart';
 
 class DialogConfirmDelete extends StatefulWidget {
   const DialogConfirmDelete({super.key});
