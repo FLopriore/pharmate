@@ -92,7 +92,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       .signUp(nameController.text, passwordController.text,
                           cfController.text, cityController.text)
                       .then((bool success) {
-                        success = true;
                     if (success) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const FavoritePharmacyPage()));
