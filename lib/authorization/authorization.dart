@@ -14,12 +14,13 @@ class Authorization {
   // Sign up
   // Returns true if signup was successful.
   // The token is stored in secure storage and is used to login later.
-  Future<bool> signUp(String name, String password, String cf) async {
+  Future<bool> signUp(String name, String password, String cf, String city) async {
     String? firebaseToken = await _getFCMToken();
     var data = {
       'fullname': name,
       'password': password,
       'cf': cf,
+      'citta': city,
       "firebase_token": firebaseToken,
     };
 

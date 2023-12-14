@@ -14,6 +14,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController cfController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,16 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             const SizedBox(height: 20),
+            const LoginText(text: "Codice Fiscale"),
+            TextField(
+                controller: cfController,
+                decoration: const InputDecoration(
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  hintText: 'Inserisci il tuo codice fiscale',
+                )),
             const LoginText(text: "Nome"),
             TextField(
                 controller: nameController,
@@ -48,15 +59,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       borderRadius: BorderRadius.all(Radius.circular(40))),
                   hintText: 'Es. Mario Rossi',
                 )),
-            const LoginText(text: "Codice Fiscale"),
+            const LoginText(text: "Citta"),
             TextField(
-                controller: cfController,
+                controller: cityController,
                 decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Inserisci il tuo codice fiscale',
+                  hintText: 'Es. Bari',
                 )),
             const LoginText(text: "Password"),
             TextField(
@@ -79,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onPressed: () async {
                   await Authorization()
                       .signUp(nameController.text, passwordController.text,
-                          cfController.text)
+                          cfController.text, cityController.text)
                       .then((bool success) {
                     if (success) {
                       // TODO: push to page to select favorite pharmacy

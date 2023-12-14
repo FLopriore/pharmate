@@ -9,7 +9,7 @@ part of 'medicine.dart';
 Medicine _$MedicineFromJson(Map<String, dynamic> json) => Medicine(
       json['codice_aic'] as String,
       json['nome'] as String,
-      json['prezzo'] as String,
+      json['prezzo'] as num,
     );
 
 Map<String, dynamic> _$MedicineToJson(Medicine instance) => <String, dynamic>{

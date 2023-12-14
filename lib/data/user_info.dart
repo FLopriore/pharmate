@@ -8,13 +8,13 @@ part 'user_info.g.dart';
 /// An annotation for the code generator to know that this class needs the
 /// JSON serialization logic to be generated.
 @JsonSerializable()
-//TODO: Add other fields to class Utente
 class Utente {
   String uid;
   String cf;
   String name;
+  String citta;
 
-  Utente(this.uid, this.cf, this.name);
+  Utente(this.uid, this.cf, this.name, this.citta);
 
   /// A necessary factory constructor for creating a new Pharmacy instance
   /// from a map. Pass the map to the generated `_$UserInfoFromJson()` constructor.

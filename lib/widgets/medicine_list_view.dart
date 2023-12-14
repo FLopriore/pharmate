@@ -19,7 +19,7 @@ class MedicineListView extends StatefulWidget {
 class _MedicineListViewState extends State<MedicineListView> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List<Medicine> searchResultsList = [];
-  List<AvailMedicine> listPharma = []; //TODO: Replace with DB Pharmas
+  List<AvailMedicine> listPharma = [];
   List<String> _favList = [];
 
   @override
@@ -137,7 +137,7 @@ class _MedicineListViewState extends State<MedicineListView> {
                                       )));
                             },
                           )),
-                  ], //TODO: add pharmas that have medicine
+                  ],
                 ));
           }),
     );

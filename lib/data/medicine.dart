@@ -11,7 +11,7 @@ part 'medicine.g.dart';
 class Medicine {
   String codice_aic;
   String nome;
-  String prezzo;
+  num prezzo;
 
   Medicine(this.codice_aic, this.nome, this.prezzo); // quantity of items
   
