@@ -107,12 +107,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: const Color(0xFFCAE6FF),
                 foregroundColor: const Color(0xFF023D74),
               ),
-              onPressed: () {
-                // TODO: add logout
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                        (Route<dynamic> route) => false);
-              },
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (Route<dynamic> route) => false),
               child: const Text("LogOut"),
             ),
           )

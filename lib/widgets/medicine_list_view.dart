@@ -73,8 +73,7 @@ class _MedicineListViewState extends State<MedicineListView> {
           itemCount: searchResultsList.length,
           itemBuilder: (BuildContext context, int index) {
             String element = searchResultsList.elementAt(index).nome;
-            bool isFavorite = _favList.contains(
-                element); // check if the result is among favorite medicines
+            bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
 
             return Semantics(
                 explicitChildNodes: true,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/authorization.dart';
-import 'package:pharmate/widgets/bottom_nav_bar.dart';
+import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/widgets/login_text.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -92,15 +92,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       .signUp(nameController.text, passwordController.text,
                           cfController.text, cityController.text)
                       .then((bool success) {
+                        success = true;
                     if (success) {
-                      // TODO: push to page to select favorite pharmacy
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const BottomNavBar()));
+                          builder: (context) => const FavoritePharmacyPage()));
                     } // TODO: add dialog to show signup error
                   });
                 },
-                icon: const Icon(Icons.login),
-                label: const Text("Entra"),
+                icon: const Icon(Icons.navigate_next),
+                label: const Text("Successivo"),
               ),
             ),
           ],
