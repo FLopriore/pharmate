@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
-import 'package:pharmate/data/user_info.dart';
+import 'package:pharmate/data/pharmacy.dart';
+import 'package:pharmate/data/user.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/widgets/confirm_dialog_delete.dart';
@@ -16,29 +17,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // TODO: elimina account
-  Utente infos = Utente("", "", "", "");
+  User infos = User("", "", "", Pharmacy("", "", ""));
 
   void _getInfo() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-      Utente inforesults = Utente.fromJson(responseJson);
+      User inforesults = User.fromJson(responseJson);
       setState(() {
         infos = inforesults;
       });
     }
   }
 
-
-void _deleteUser() async {
-  await CallApi().deleteData("users/");
-}
-
+  void _deleteUser() async {
+    await CallApi().deleteData("users/");
+  }
 
   @override
   Widget build(BuildContext context) {
     _getInfo();
-      final bool accessibleNavigation =
+    final bool accessibleNavigation =
         MediaQuery.of(context).accessibleNavigation;
     return Consumer(
         builder: (context, AccessibilityProvider themeNotifier, child) {
@@ -71,11 +69,11 @@ void _deleteUser() async {
               children: <Widget>[
                 const ExcludeSemantics(
                     child: ProfileText(
-                        title: 'Fullname: ', textAlign: TextAlign.end)),
+                        title: 'Nome: ', textAlign: TextAlign.end)),
                 Semantics(
-                    label: "Il tuo nome è ${infos.name}",
+                    label: "Il tuo nome è ${infos.fullname}",
                     child: ProfileText(
-                        title: infos.name, textAlign: TextAlign.start)),
+                        title: infos.fullname, textAlign: TextAlign.start)),
                 const ExcludeSemantics(
                     child: ProfileText(
                         title: 'Città: ', textAlign: TextAlign.end)),
@@ -118,14 +116,18 @@ void _deleteUser() async {
                 foregroundColor: const Color(0xFF023D74),
               ),
               onPressed: () {
-                if (accessibleNavigation==true){
+                if (accessibleNavigation == true) {
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                        (Route<dynamic> route) => false);
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                      (Route<dynamic> route) => false);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: ((context) {
+                        return const DialogConfirmLogOut();
+                      }));
                 }
-                else {showDialog(context: context, builder: ((context) {
-                  return const DialogConfirmLogOut();
-                }));}
               },
               child: const Text("LogOut"),
             ),
@@ -135,19 +137,23 @@ void _deleteUser() async {
             button: true,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF023D74), 
+                backgroundColor: const Color(0xFF023D74),
                 foregroundColor: const Color(0xFFCAE6FF),
               ),
               onPressed: () {
-                if(accessibleNavigation==true){
-                   _deleteUser();
-                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                        (Route<dynamic> route) => false);
+                if (accessibleNavigation == true) {
+                  _deleteUser();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                      (Route<dynamic> route) => false);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: ((context) {
+                        return const DialogConfirmDelete();
+                      }));
                 }
-                else{showDialog(context: context, builder: ((context) {
-                  return const DialogConfirmDelete();
-                }));}
               },
               child: const Text("Elimina Account"),
             ),

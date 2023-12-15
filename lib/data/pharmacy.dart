@@ -10,10 +10,10 @@ part 'pharmacy.g.dart';
 @JsonSerializable()
 class Pharmacy {
   String nome;
-  String piva;
+  String codice_farmacia;
   String citta;
 
-  Pharmacy(this.nome, this.piva, this.citta);
+  Pharmacy(this.nome, this.codice_farmacia, this.citta);
 
   /// A necessary factory constructor for creating a new Pharmacy instance
   /// from a map. Pass the map to the generated `_$PharmacyFromJson()` constructor.

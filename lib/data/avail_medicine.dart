@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pharmate/data/medicine.dart';
 import 'package:pharmate/data/pharmacy.dart';
 
 /// This allows the `AvailMedicine` class to access private members in
@@ -10,10 +11,11 @@ part 'avail_medicine.g.dart';
 /// JSON serialization logic to be generated.
 @JsonSerializable(explicitToJson: true)
 class AvailMedicine {
-  Pharmacy f;
-  int qt;
+  Pharmacy farmacia;
+  Medicine prodotto;
+  int quantita;
 
-  AvailMedicine(this.f, this.qt);
+  AvailMedicine(this.farmacia, this.prodotto, this.quantita);
 
   /// A necessary factory constructor for creating a new AvailMedicine instance
   /// from a map. Pass the map to the generated `_$AvailMedicineFromJson()` constructor.

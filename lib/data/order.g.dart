@@ -7,23 +7,25 @@ part of 'order.dart';
 // **************************************************************************
 
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
-      json['id'] as int,
-      json['item'] as String,
-      json['qta'] as int,
+      json['uuid'] as String,
+      Medicine.fromJson(json['prodotto'] as Map<String, dynamic>),
+      json['quantita'] as int,
       $enumDecode(_$StatusEnumMap, json['status']),
-      json['pharmacy'] as String,
+      json['date'] as String,
+      Pharmacy.fromJson(json['farmacia'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
-      'id': instance.id,
-      'item': instance.item,
-      'qta': instance.qta,
+      'uuid': instance.uuid,
+      'prodotto': instance.prodotto.toJson(),
+      'quantita': instance.quantita,
       'status': _$StatusEnumMap[instance.status]!,
-      'pharmacy': instance.pharmacy,
+      'date': instance.date,
+      'farmacia': instance.farmacia.toJson(),
     };
 
 const _$StatusEnumMap = {
-  Status.red: 'red',
-  Status.yellow: 'yellow',
-  Status.green: 'green',
+  Status.PENDING: 'PENDING',
+  Status.ACCEPTED: 'ACCEPTED',
+  Status.DELIVERED: 'DELIVERED',
 };

@@ -8,12 +8,12 @@ part of 'pharmacy.dart';
 
 Pharmacy _$PharmacyFromJson(Map<String, dynamic> json) => Pharmacy(
       json['nome'] as String,
-      json['piva'] as String,
+      json['codice_farmacia'] as String,
       json['citta'] as String,
     );
 
 Map<String, dynamic> _$PharmacyToJson(Pharmacy instance) => <String, dynamic>{
       'nome': instance.nome,
-      'piva': instance.piva,
+      'codice_farmacia': instance.codice_farmacia,
       'citta': instance.citta,
     };

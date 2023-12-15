@@ -33,7 +33,7 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   columns: const [
                     DataColumn(
                       label:
-                          Text("ID", style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text("Data", style: TextStyle(fontWeight: FontWeight.bold)),
                       numeric: true,
                     ),
                     DataColumn(
@@ -51,9 +51,9 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   rows: List<DataRow>.generate(
                       snapshot.data!.length,
                       (int index) => DataRow(cells: <DataCell>[
-                            DataCell(Text(snapshot.data![index].id.toString())),
-                            DataCell(Text(snapshot.data![index].item)),
-                            DataCell(Text(snapshot.data![index].qta.toString())),
+                            DataCell(Text(snapshot.data![index].date)),
+                            DataCell(Text(snapshot.data![index].prodotto.nome)),
+                            DataCell(Text(snapshot.data![index].quantita.toString())),
                             DataCell(Center(
                               child: Icon(
                                 Icons.circle,
@@ -75,11 +75,11 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
 
   Color getStatusColor(Status status) {
     switch (status) {
-      case Status.red:
+      case Status.PENDING:
         return Colors.red;
-      case Status.yellow:
+      case Status.ACCEPTED:
         return Colors.yellow;
-      case Status.green:
+      case Status.DELIVERED:
         return Colors.green;
     }
   }

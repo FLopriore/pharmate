@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pharmate/data/api.dart';
+import 'package:pharmate/data/medicine.dart';
+import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:pharmate/widgets/set_number_items.dart';
 
 class ConfirmOrderPage extends StatelessWidget {
-  final String item;
-  final String pharmacy;
+  final Medicine item;
+  final Pharmacy pharmacy;
   final int maxAvailQuantity;
   static int _numItems = 1;
   final TextEditingController controller = TextEditingController();
@@ -59,8 +61,8 @@ class ConfirmOrderPage extends StatelessWidget {
                   )),
               ListTile(
                 title: Text(
-                  item,
-                  semanticsLabel: "Stai ordinato il prodotto: $item",
+                  item.nome,
+                  semanticsLabel: "Stai ordinato il prodotto: ${item.nome}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -87,8 +89,8 @@ class ConfirmOrderPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  pharmacy,
-                  semanticsLabel: "Stai ordinando dalla farmacia $pharmacy",
+                  pharmacy.nome,
+                  semanticsLabel: "Stai ordinando dalla farmacia ${pharmacy.nome}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -118,10 +120,9 @@ class ConfirmOrderPage extends StatelessWidget {
                     ),
                     onPressed: () async {
                       var data = {
-                        'item': item,
-                        'pharmacy': pharmacy,
-                        'qta': accessibleNavigation ? controller.text : _numItems,
-                        'status': 'red',
+                        'aic': item.codice_aic,
+                        'codice_farmacia': pharmacy,
+                        'qt': accessibleNavigation ? controller.text : _numItems,
                       };
                       await CallApi()
                           .postData(data, 'ordini')

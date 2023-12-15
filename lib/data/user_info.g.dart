@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_info.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Utente _$UtenteFromJson(Map<String, dynamic> json) => Utente(
-      json['uid'] as String,
+User _$UtenteFromJson(Map<String, dynamic> json) => User(
       json['cf'] as String,
-      json['name'] as String,
+      json['fullname'] as String,
       json['citta'] as String,
+      Pharmacy.fromJson(json['favourite'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UtenteToJson(Utente instance) => <String, dynamic>{
-      'uid': instance.uid,
+Map<String, dynamic> _$UtenteToJson(User instance) => <String, dynamic>{
       'cf': instance.cf,
-      'name': instance.name,
+      'fullname': instance.fullname,
       'citta': instance.citta,
+      'favourite': instance.favourite.toJson(),
     };

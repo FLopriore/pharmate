@@ -8,12 +8,14 @@ part of 'avail_medicine.dart';
 
 AvailMedicine _$AvailMedicineFromJson(Map<String, dynamic> json) =>
     AvailMedicine(
-      Pharmacy.fromJson(json['f'] as Map<String, dynamic>),
-      json['qt'] as int,
+      Pharmacy.fromJson(json['farmacia'] as Map<String, dynamic>),
+      Medicine.fromJson(json['prodotto'] as Map<String, dynamic>),
+      json['quantita'] as int,
     );
 
 Map<String, dynamic> _$AvailMedicineToJson(AvailMedicine instance) =>
     <String, dynamic>{
-      'f': instance.f.toJson(),
-      'qt': instance.qt,
+      'farmacia': instance.farmacia.toJson(),
+      'prodotto': instance.prodotto.toJson(),
+      'quantita': instance.quantita,
     };

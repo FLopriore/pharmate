@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
+import 'package:pharmate/local_storage/shared_pref.dart';
 import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
@@ -17,10 +18,9 @@ class MedicineListView extends StatefulWidget {
 }
 
 class _MedicineListViewState extends State<MedicineListView> {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List<Medicine> searchResultsList = [];
   List<AvailMedicine> listPharma = [];
-  List<String> _favList = [];
+  List<Medicine> _favList = [];
 
   @override
   void initState() {
@@ -28,11 +28,11 @@ class _MedicineListViewState extends State<MedicineListView> {
     _loadFavorite();
   }
 
-  // Loading stored values of favorite medicines on start
+  // Loading favoriteMedicinesList stored value
   Future<void> _loadFavorite() async {
-    final prefs = await _prefs;
+    List<Medicine> favList = await SharedPref().getFavoriteMedicines();
     setState(() {
-      _favList = prefs.getStringList('favorite') ?? [];
+      _favList = favList;
     });
   }
 
@@ -72,7 +72,7 @@ class _MedicineListViewState extends State<MedicineListView> {
           scrollDirection: Axis.vertical,
           itemCount: searchResultsList.length,
           itemBuilder: (BuildContext context, int index) {
-            String element = searchResultsList.elementAt(index).nome;
+            Medicine element = searchResultsList.elementAt(index);
             bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
 
             return Semantics(
@@ -83,8 +83,8 @@ class _MedicineListViewState extends State<MedicineListView> {
                     onTapHint:
                         "Tocca per scegliere la farmacia dal quale ordinare",
                     child: Text(
-                      element,
-                      semanticsLabel: "Ordina $element",
+                      element.nome,
+                      semanticsLabel: "Ordina ${element.nome}",
                     ),
                   ),
                   leading: Semantics(
@@ -98,17 +98,14 @@ class _MedicineListViewState extends State<MedicineListView> {
                               ? const Icon(Icons.grade)
                               : const Icon(Icons.grade_outlined),
                           onPressed: () async {
-                            final prefs = await _prefs;
                             setState(() {
                               if (isFavorite) {
-                                _favList.remove(
-                                    element); // remove medicine from favorite
+                                _favList.remove(element); // remove medicine from favorite
                               } else {
-                                _favList
-                                    .add(element); // add medicine to favorite
+                                _favList.add(element); // add medicine to favorite
                               }
-                              prefs.setStringList('favorite', _favList);
                             });
+                            SharedPref().setFavoriteMedicines(_favList);
                           },
                           style: ButtonStyle(
                               iconColor: MaterialStateProperty.all(
@@ -126,13 +123,13 @@ class _MedicineListViewState extends State<MedicineListView> {
                       Semantics(
                           label: "Premi per ordinare dalla farmacia",
                           child: BuyNowListTile(
-                            title: i.f.nome,
+                            title: i.farmacia.nome,
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ConfirmOrderPage(
                                         item: element,
-                                        pharmacy: i.f.nome,
-                                        maxAvailQuantity: i.qt,
+                                        pharmacy: i.farmacia,
+                                        maxAvailQuantity: i.quantita,
                                       )));
                             },
                           )),
