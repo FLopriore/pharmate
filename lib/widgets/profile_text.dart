@@ -9,7 +9,7 @@ class ProfileText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       textAlign: textAlign,
     );
   }
