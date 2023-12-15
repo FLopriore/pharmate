@@ -14,7 +14,7 @@ class Medicine {
   num prezzo;
 
   Medicine(this.codice_aic, this.nome, this.prezzo); // quantity of items
-  
+
   /// A necessary factory constructor for creating a new Medicine instance
   /// from a map. Pass the map to the generated `_$MedicineFromJson()` constructor.
   /// The constructor is named after the source class, in this case, Medicine.
@@ -24,4 +24,14 @@ class Medicine {
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$MedicineToJson`.
   Map<String, dynamic> toJson() => _$MedicineToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (runtimeType != other.runtimeType) return false;
+    return other is Medicine && other.codice_aic == codice_aic;
+  }
+
+  @override
+  int get hashCode => codice_aic.hashCode;
 }
