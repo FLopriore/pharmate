@@ -8,7 +8,6 @@ import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MedicineListView extends StatefulWidget {
   const MedicineListView({super.key});
