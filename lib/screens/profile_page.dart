@@ -29,6 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+
+void _deleteUser() async {
+  await CallApi().deleteData("users/");
+}
+
+
   @override
   Widget build(BuildContext context) {
     _getInfo();
@@ -134,7 +140,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               onPressed: () {
                 if(accessibleNavigation==true){
-                  //TODO Elimina account
+                   _deleteUser();
+                   Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                        (Route<dynamic> route) => false);
                 }
                 else{showDialog(context: context, builder: ((context) {
                   return const DialogConfirmDelete();

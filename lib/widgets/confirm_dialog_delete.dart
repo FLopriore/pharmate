@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/data/api.dart';
+import 'package:pharmate/screens/login_page.dart';
 
 class DialogConfirmDelete extends StatefulWidget {
   const DialogConfirmDelete({super.key});
@@ -8,7 +10,9 @@ class DialogConfirmDelete extends StatefulWidget {
 }
 
 class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
-  
+  void _deleteUser() async {
+  await CallApi().deleteData("users/");
+}
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,10 @@ class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
             fixedSize: const Size.fromHeight(55),
           ),
           onPressed: () {
-            //TODO: Delete user from server
+            _deleteUser();
+            Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                        (Route<dynamic> route) => false);
           },
           child: const Text("Conferma"),
         ),

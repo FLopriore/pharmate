@@ -52,7 +52,7 @@ class CallApi {
   }
 
   //DELETE
-  Future<dynamic> deleteData(data, String apiUrl) async {
+  Future<dynamic> deleteData(String apiUrl) async {
     String fullUrl = _url + apiUrl;
     HttpClient client = HttpClient();
     // Bypass SSL certification
@@ -65,7 +65,6 @@ class CallApi {
 
     String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
     request.headers.set('Authorization', 'Bearer ${token!}');
-    request.add(utf8.encode(jsonEncode(data)));
     HttpClientResponse result = await request.close();
 
     if (result.statusCode == 200) {
