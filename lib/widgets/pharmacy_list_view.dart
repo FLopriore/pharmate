@@ -35,8 +35,8 @@ class _PharmacyListViewState extends State<PharmacyListView> {
                 title: Text(pharmaciesList[index].nome),
                 trailing: IconButton(
                   icon: Icon((index == _selectedIndex)
-                      ? Icons.check_box
-                      : Icons.check_box_outline_blank),
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked),
                   onPressed: () {
                     // Select this pharmacy as favorite one
                     setState(() {
