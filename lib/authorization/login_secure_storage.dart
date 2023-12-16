@@ -8,8 +8,13 @@ class LoginSecureStorage{
     await storage.write(key: key, value: value);
   }
 
-  // Retrieve login data from secure storage.
+  // Retrieves login data from secure storage.
   static Future<String?> getLoginSecureStorage(String key) async {
     return await storage.read(key: key);
+  }
+
+  // Deletes login data from secure storage.
+  static void deleteLoginSecureStorage() async {
+    await storage.deleteAll();
   }
 }

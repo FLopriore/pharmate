@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
-import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
 import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
