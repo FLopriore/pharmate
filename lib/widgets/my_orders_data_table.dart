@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/order.dart';
 import 'package:pharmate/json_useful_fields.dart';
@@ -12,6 +13,7 @@ class MyOrdersDataTable extends StatefulWidget {
 
 class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
   late Future<List<Order>> myOrdersList;
+  DateFormat formatter = DateFormat('yyyy-mm-dd');
 
   @override
   void initState() {
@@ -52,7 +54,7 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   rows: List<DataRow>.generate(
                       snapshot.data!.length,
                       (int index) => DataRow(cells: <DataCell>[
-                            DataCell(Text(snapshot.data![index].date)),
+                            DataCell(Text(formatter.format(DateTime.parse(snapshot.data![index].date)))),
                             DataCell(Text(snapshot.data![index].prodotto.nome)),
                             DataCell(Text(snapshot.data![index].quantita.toString())),
                             DataCell(Center(
