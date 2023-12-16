@@ -122,6 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               onPressed: () {
                 if (accessibleNavigation == true) {
+                  LoginSecureStorage.deleteLoginSecureStorage();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const LoginPage()),
@@ -134,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       }));
                 }
               },
-              child: const Text("LogOut"),
+              child: const Text("Esci dal profilo"),
             ),
           ),
           Semantics(
