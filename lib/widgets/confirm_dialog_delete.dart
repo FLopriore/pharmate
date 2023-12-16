@@ -11,11 +11,6 @@ class DialogConfirmDelete extends StatefulWidget {
 }
 
 class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
-  Future<void> _deleteUser() async {
-    await CallApi().deleteData("users/");
-    LoginSecureStorage.deleteLoginSecureStorage();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -24,7 +19,7 @@ class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
         style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
       ),
       content: const Text(
-          "Sei sicuro di voler cancellare il tuo account Pharmate(operazione irreversibile)",
+          "Sei sicuro di voler cancellare il tuo account Pharmate?\nL'operazione è irreversibile.",
           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
       actions: [
         TextButton(
@@ -33,8 +28,8 @@ class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
             foregroundColor: Colors.white,
             fixedSize: const Size.fromHeight(55),
           ),
-          onPressed: () {
-            _deleteUser().then((value) => Navigator.of(context)
+          onPressed: () async {
+            await _deleteUser().then((value) => Navigator.of(context)
                 .pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                     (Route<dynamic> route) => false));
@@ -54,5 +49,10 @@ class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
         ),
       ],
     );
+  }
+
+  Future<void> _deleteUser() async {
+    bool deleteSuccess = await CallApi().deleteData("users/");
+    if (deleteSuccess) LoginSecureStorage.deleteLoginSecureStorage();
   }
 }

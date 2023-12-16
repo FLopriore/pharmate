@@ -52,7 +52,7 @@ class CallApi {
   }
 
   //DELETE
-  Future<dynamic> deleteData(String apiUrl) async {
+  Future<bool> deleteData(String apiUrl) async {
     String fullUrl = _url + apiUrl;
     HttpClient client = HttpClient();
     // Bypass SSL certification
@@ -68,9 +68,9 @@ class CallApi {
     HttpClientResponse result = await request.close();
 
     if (result.statusCode == 200) {
-      return jsonDecode(await result.transform(utf8.decoder).join());
+      return true;
     } else {
-      return null;
+      return false;
     }
   }
   }

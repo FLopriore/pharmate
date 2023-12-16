@@ -178,8 +178,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return inforesults;
   }
 
-  void _deleteUser() async {
-    await CallApi().deleteData("users/");
-    LoginSecureStorage.deleteLoginSecureStorage();
+  Future<void> _deleteUser() async {
+    bool deleteSuccess = await CallApi().deleteData("users/");
+    if (deleteSuccess) LoginSecureStorage.deleteLoginSecureStorage();
   }
 }
