@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/pharmacy.dart';
-import 'package:pharmate/data/user.dart';
+import 'package:pharmate/data/user_info.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/widgets/confirm_dialog_delete.dart';
@@ -17,12 +17,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User infos = User("", "", "", Pharmacy("", "", ""));
+  Utente infos = Utente("", "", "", Pharmacy("", "", ""));
 
   void _getInfo() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-      User inforesults = User.fromJson(responseJson);
+      Utente inforesults = Utente.fromJson(responseJson);
       setState(() {
         infos = inforesults;
       });

@@ -3,7 +3,7 @@ import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
 import 'package:pharmate/data/pharmacy.dart';
-import 'package:pharmate/data/user.dart';
+import 'package:pharmate/data/user_info.dart';
 import 'package:pharmate/local_storage/shared_pref.dart';
 import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
@@ -96,7 +96,7 @@ class _BuyNowListViewState extends State<BuyNowListView> {
   void _getFavoritePharmacy() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-      User userInfo = User.fromJson(responseJson);
+      Utente userInfo = Utente.fromJson(responseJson);
       _favoritePharmacy = userInfo.favourite;
     }
   }
