@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/order.dart';
+import 'package:pharmate/json_useful_fields.dart';
 
 class MyOrdersDataTable extends StatefulWidget {
   const MyOrdersDataTable({super.key});
@@ -86,8 +87,10 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
 
   Future<List<Order>> getMyOrders() async {
     var responseJson = await CallApi().getData('ordini');
+    var modresponseJson = JsonUsefulFields.getUserOrders(responseJson!);
     List<Order> myOrders =
-        List<Order>.from(responseJson.map((model) => Order.fromJson(model)));
+        List<Order>.from(modresponseJson.map((model) => Order.fromJson(model)));
+
     return myOrders;
   }
 }

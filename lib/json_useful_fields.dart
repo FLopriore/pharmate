@@ -13,13 +13,14 @@ class JsonUsefulFields {
   }
 
   // ordine/utente
-  static Map<String, dynamic> getUserOrder(json) {
+  static List<Map<String, dynamic>> getUserOrders(List jsonList) {
+    List<Map<String, dynamic>> result = [];
+    for (var json in jsonList){
     var prodotto = {
       "codice_aic": json["prodotto"]["aic"],
       "nome": json["prodotto"]["nome"],
       "prezzo": json["prodotto"]["prezzo"]
     };
-
     var data = {
       "uuid": json["uuid"],
       "farmacia": json["farmacia"],
@@ -28,9 +29,10 @@ class JsonUsefulFields {
       "date": json["date"],
       "status": json["status"],
     };
-    return data;
+    result.add(data);
   }
-
+  return result;
+  }
   // farmacie/mycity
   static List<Map<String, dynamic>> getMyCityPharmacies(List jsonList) {
     List<Map<String, dynamic>> result = [];
