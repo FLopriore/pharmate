@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
@@ -18,24 +19,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Utente infos = Utente("", "", "", Pharmacy("", "", ""));
+  late Future<Utente> userInfo;
 
-  void _getInfo() async {
-    var responseJson = await CallApi().getData("users/me");
-    if (responseJson != null) {
-
-      // TODO: remove this variable when server is complete
-      var modresponseJson = JsonUsefulFields.getUserFields(responseJson);
-
-      Utente inforesults = Utente.fromJson(modresponseJson);
-      setState(() {
-        infos = inforesults;
-      });
-    }
-  }
-
-  void _deleteUser() async {
-    await CallApi().deleteData("users/");
+  @override
+  void initState() {
+    super.initState();
+    userInfo = _getInfo();
   }
 
   @override
@@ -64,36 +53,48 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(
             width: 500,
             height: 250,
-            child: GridView.count(
-              shrinkWrap: true,
-              primary: false,
-              crossAxisSpacing: 30,
-              mainAxisSpacing: 10,
-              childAspectRatio: 5,
-              crossAxisCount: 2,
-              children: <Widget>[
-                const ExcludeSemantics(
-                    child: ProfileText(
-                        title: 'Nome: ', textAlign: TextAlign.end)),
-                Semantics(
-                    label: "Il tuo nome è ${infos.fullname}",
-                    child: ProfileText(
-                        title: infos.fullname, textAlign: TextAlign.start)),
-                const ExcludeSemantics(
-                    child: ProfileText(
-                        title: 'Città: ', textAlign: TextAlign.end)),
-                Semantics(
-                    label: "Abiti a ${infos.citta}",
-                    child: ProfileText(
-                        title: infos.citta, textAlign: TextAlign.start)),
-                const ExcludeSemantics(
-                    child: ProfileText(
-                        title: 'Codice Fiscale: ', textAlign: TextAlign.end)),
-                Semantics(
-                    label: "Il tuo codice fiscale è ${infos.cf}",
-                    child: ProfileText(
-                        title: infos.cf, textAlign: TextAlign.start)),
-              ],
+            child: FutureBuilder(
+              future: userInfo,
+              builder: (BuildContext context, AsyncSnapshot<Utente> snapshot) {
+                if (snapshot.hasData) {
+                  return GridView.count(
+                    shrinkWrap: true,
+                    primary: false,
+                    crossAxisSpacing: 30,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 5,
+                    crossAxisCount: 2,
+                    children: <Widget>[
+                      const ExcludeSemantics(
+                          child: ProfileText(
+                              title: 'Nome: ', textAlign: TextAlign.end)),
+                      Semantics(
+                          label: "Il tuo nome è ${snapshot.data!.fullname}",
+                          child: ProfileText(
+                              title: snapshot.data!.fullname,
+                              textAlign: TextAlign.start)),
+                      const ExcludeSemantics(
+                          child: ProfileText(
+                              title: 'Città: ', textAlign: TextAlign.end)),
+                      Semantics(
+                          label: "Abiti a ${snapshot.data!.citta}",
+                          child: ProfileText(
+                              title: snapshot.data!.citta,
+                              textAlign: TextAlign.start)),
+                      const ExcludeSemantics(
+                          child: ProfileText(
+                              title: 'Codice Fiscale: ',
+                              textAlign: TextAlign.end)),
+                      Semantics(
+                          label: "Il tuo codice fiscale è ${snapshot.data!.cf}",
+                          child: ProfileText(
+                              title: snapshot.data!.cf, textAlign: TextAlign.start)),
+                    ],
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
           ),
           //the switch tile is useless for the semantics
@@ -166,5 +167,20 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ));
     });
+  }
+
+  Future<Utente> _getInfo() async {
+    var responseJson = await CallApi().getData("users/me");
+
+    // TODO: remove this variable when server is complete
+    var modresponseJson = JsonUsefulFields.getUserFields(responseJson!);
+
+    Utente inforesults = Utente.fromJson(modresponseJson);
+    return inforesults;
+  }
+
+  void _deleteUser() async {
+    await CallApi().deleteData("users/");
+    LoginSecureStorage.deleteLoginSecureStorage();
   }
 }
