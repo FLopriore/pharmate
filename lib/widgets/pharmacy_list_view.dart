@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/pharmacy.dart';
+import 'package:pharmate/json_useful_fields.dart';
 
 class PharmacyListView extends StatefulWidget {
   final Function
@@ -53,8 +54,12 @@ class _PharmacyListViewState extends State<PharmacyListView> {
   void _getPharmacies() async {
     var responseJson = await CallApi().getData("farmacie/mycity");
     if (responseJson != null) {
+
+      // TODO: remove this variable when server is complete
+      var modresponseJson = JsonUsefulFields.getMyCityPharmacies(responseJson);
+
       List<Pharmacy> pharmacies = List<Pharmacy>.from(
-          responseJson.map((model) => Pharmacy.fromJson(model)));
+          modresponseJson.map((model) => Pharmacy.fromJson(model)));
       setState(() {
         pharmaciesList = pharmacies;
       });

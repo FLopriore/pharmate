@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
+import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/widgets/confirm_dialog_delete.dart';
@@ -22,7 +23,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void _getInfo() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-      Utente inforesults = Utente.fromJson(responseJson);
+
+      // TODO: remove this variable when server is complete
+      var modresponseJson = JsonUsefulFields.getUserFields(responseJson);
+
+      Utente inforesults = Utente.fromJson(modresponseJson);
       setState(() {
         infos = inforesults;
       });

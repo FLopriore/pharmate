@@ -4,6 +4,7 @@ import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
 import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
+import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/local_storage/shared_pref.dart';
 import 'package:pharmate/screens/confirm_order_page.dart';
 import 'package:pharmate/widgets/buy_now_list_tile.dart';
@@ -46,8 +47,14 @@ class _BuyNowListViewState extends State<BuyNowListView> {
     for (int i = 0; i < favoriteMedicinesList.length; i++) {
       Medicine element = favoriteMedicinesList[i];
       var responseJson = await CallApi().getData("prodotti/avail/${element.codice_aic}");
+
+      // TODO: remove this variable when server is complete
+      var modresponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
+
       List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          responseJson!.map((model) => AvailMedicine.fromJson(model)));
+          modresponseJson.map((model) => AvailMedicine.fromJson(model)));
+          // responseJson!.map((model) => AvailMedicine.fromJson(model)));
+
       bool isAvailable = pharmacies.any((element) =>
           element.farmacia.codice_farmacia == _favoritePharmacy.codice_farmacia);
       availList.add(isAvailable);
@@ -96,7 +103,11 @@ class _BuyNowListViewState extends State<BuyNowListView> {
   void _getFavoritePharmacy() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-      Utente userInfo = Utente.fromJson(responseJson);
+
+      // TODO: remove this variable when server is complete
+      var modresponseJson = JsonUsefulFields.getUserFields(responseJson);
+
+      Utente userInfo = Utente.fromJson(modresponseJson);
       _favoritePharmacy = userInfo.favourite;
     }
   }
