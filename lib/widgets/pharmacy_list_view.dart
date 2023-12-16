@@ -25,32 +25,34 @@ class _PharmacyListViewState extends State<PharmacyListView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<FavPharmacyProvider>(
-      builder: (context, provider, child) =>
-          (pharmaciesList.isNotEmpty)
-          ? ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              itemCount: pharmaciesList.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  selected: index == _selectedIndex,
-                  title: Text(pharmaciesList[index].nome),
-                  trailing: IconButton(
-                    icon: Icon((index == _selectedIndex)
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_unchecked),
-                    onPressed: () {
-                      // Select this pharmacy as favorite one
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                      provider.setFavPharma(pharmaciesList[index].codice_farmacia);
-                    },
-                  ),
-                );
-              },
-            )
-          : const Center(child: Text('Nessuna farmacia trovata'))
+      builder: (context, provider, child) {
+        if (pharmaciesList.isNotEmpty) provider.setFavPharma(pharmaciesList[0].codice_farmacia);
+        return (pharmaciesList.isNotEmpty)
+            ? ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          itemCount: pharmaciesList.length,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              selected: index == _selectedIndex,
+              title: Text(pharmaciesList[index].nome),
+              trailing: IconButton(
+                icon: Icon((index == _selectedIndex)
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked),
+                onPressed: () {
+                  // Select this pharmacy as favorite one
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                  provider.setFavPharma(pharmaciesList[index].codice_farmacia);
+                },
+              ),
+            );
+          },
+        )
+            : const Center(child: Text('Nessuna farmacia trovata'));
+      }
     );
   }
 

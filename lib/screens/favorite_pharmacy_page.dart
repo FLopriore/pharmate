@@ -42,8 +42,7 @@ class FavoritePharmacyPage extends StatelessWidget {
             onPressed: () async {
               var provider = Provider.of<FavPharmacyProvider>(context, listen: false);
               await Authorization()
-                  .setFavoritePharmacy(
-                      provider.favPharmacyCode)
+                  .setFavoritePharmacy(provider.favPharmacyCode)
                   .then((result) {
                 if (result) {
                   Navigator.of(context).pushAndRemoveUntil(
