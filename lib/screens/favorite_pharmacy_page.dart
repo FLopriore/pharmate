@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pharmate/data/api.dart';
-import 'package:pharmate/data/pharmacy.dart';
+import 'package:pharmate/authorization/authorization.dart';
+import 'package:pharmate/providers/fav_pharmacy_provider.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/pharmacy_list_view.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
+import 'package:provider/provider.dart';
 
 class FavoritePharmacyPage extends StatelessWidget {
-  static Pharmacy _selectedPharmacy = Pharmacy("", "", "");
   const FavoritePharmacyPage({super.key});
-
-  // Used to get value from child widget.
-  // No state management package was used in order not to over-engineer.
-  callBack(Pharmacy pharmacy) {
-    _selectedPharmacy = pharmacy;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +28,10 @@ class FavoritePharmacyPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: RoundedBackgroundRectangle(
-                  child: PharmacyListView(callBack: callBack)), //TODO: Add Semantic for every tile
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: RoundedBackgroundRectangle(child: PharmacyListView()), //TODO: Add Semantic for every tile
             ),
           ),
           ElevatedButton.icon(
@@ -47,11 +40,16 @@ class FavoritePharmacyPage extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             onPressed: () async {
-              var data = {"farmacia_preferita": _selectedPharmacy.toJson()};
-              await CallApi().postData(data, "users/edit").then((result) {
-                if (result != null) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const BottomNavBar()));
+              var provider = Provider.of<FavPharmacyProvider>(context, listen: false);
+              await Authorization()
+                  .setFavoritePharmacy(
+                      provider.favPharmacyCode)
+                  .then((result) {
+                if (result) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const BottomNavBar()),
+                      (Route<dynamic> route) => false);
                 }
               });
             },

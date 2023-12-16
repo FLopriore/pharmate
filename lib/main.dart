@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmate/providers/fav_pharmacy_provider.dart';
 import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/screens/splash_page.dart';
 import 'package:pharmate/ui/theme.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AccessibilityProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider()),
+        ChangeNotifierProvider(create: (_) => FavPharmacyProvider()),
       ],
       child: Consumer(
           builder: (context, AccessibilityProvider themeNotifier, child) {

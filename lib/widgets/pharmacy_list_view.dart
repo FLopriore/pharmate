@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/json_useful_fields.dart';
+import 'package:pharmate/providers/fav_pharmacy_provider.dart';
+import 'package:provider/provider.dart';
 
 class PharmacyListView extends StatefulWidget {
-  final Function
-      callBack; // necessary to get selected pharmacy on parent widget
-  const PharmacyListView({super.key, required this.callBack});
+  const PharmacyListView({super.key});
 
   @override
   State<PharmacyListView> createState() => _PharmacyListViewState();
@@ -24,31 +24,34 @@ class _PharmacyListViewState extends State<PharmacyListView> {
 
   @override
   Widget build(BuildContext context) {
-    return (pharmaciesList.isNotEmpty)
-        ? ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            itemCount: pharmaciesList.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                selected: index == _selectedIndex,
-                title: Text(pharmaciesList[index].nome),
-                trailing: IconButton(
-                  icon: Icon((index == _selectedIndex)
-                      ? Icons.radio_button_checked
-                      : Icons.radio_button_unchecked),
-                  onPressed: () {
-                    // Select this pharmacy as favorite one
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                    widget.callBack(pharmaciesList[index]);
-                  },
-                ),
-              );
-            },
-          )
-        : const Center(child: Text('Nessuna farmacia trovata'));
+    return Consumer<FavPharmacyProvider>(
+      builder: (context, provider, child) =>
+          (pharmaciesList.isNotEmpty)
+          ? ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              itemCount: pharmaciesList.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  selected: index == _selectedIndex,
+                  title: Text(pharmaciesList[index].nome),
+                  trailing: IconButton(
+                    icon: Icon((index == _selectedIndex)
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked),
+                    onPressed: () {
+                      // Select this pharmacy as favorite one
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                      provider.setFavPharma(pharmaciesList[index].codice_farmacia);
+                    },
+                  ),
+                );
+              },
+            )
+          : const Center(child: Text('Nessuna farmacia trovata'))
+    );
   }
 
   void _getPharmacies() async {

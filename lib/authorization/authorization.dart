@@ -70,4 +70,27 @@ class Authorization {
     }
     return false;
   }
+
+  // Set favorite Pharmacy
+  Future<bool> setFavoritePharmacy(String pharmacyCode) async {
+    var data = {'farmacia_preferita': pharmacyCode};
+    String fullUrl = '${_url}users/edit';
+
+    HttpClient client = HttpClient();
+    // Bypass SSL certification
+    client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+
+    HttpClientRequest request = await client.postUrl(Uri.parse(fullUrl));
+    request.headers.set('Content-Type', 'application/json');
+    request.headers.set('accept', '*/*');
+
+    String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
+    request.headers.set('Authorization', 'Bearer ${token!}');
+    request.add(utf8.encode(jsonEncode(data)));
+    HttpClientResponse response = await request.close();
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }
