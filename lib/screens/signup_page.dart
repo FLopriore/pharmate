@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/widgets/login_text.dart';
+import 'package:pharmate/widgets/rounded_text_field.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -40,46 +41,25 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             const SizedBox(height: 20),
             const LoginText(text: "Codice Fiscale"),
-            TextField(
+            RoundedTextField(
                 controller: cfController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Inserisci il tuo codice fiscale',
-                )),
+                hintText: "Inserisci il tuo codice fiscale",
+            ),
             const LoginText(text: "Nome"),
-            TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Es. Mario Rossi',
-                )),
+            RoundedTextField(
+              controller: nameController,
+              hintText: "Es. Mario Rossi",
+            ),
             const LoginText(text: "Citta"),
-            TextField(
-                controller: cityController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Es. Bari',
-                )),
+            RoundedTextField(
+              controller: cityController,
+              hintText: 'Es. Bari',
+            ),
             const LoginText(text: "Password"),
-            TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(40))),
-                  hintText: 'Inserisci password',
-                )),
+            RoundedTextField.obscured(
+              controller: passwordController,
+              hintText: 'Inserisci password',
+            ),
             const SizedBox(height: 16),
             Center(
               child: ElevatedButton.icon(
