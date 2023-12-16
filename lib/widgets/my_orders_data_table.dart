@@ -89,7 +89,9 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
 
   Future<List<Order>> getMyOrders() async {
     var responseJson = await CallApi().getData('ordini');
+    // TODO: remove when server is complete
     var modresponseJson = JsonUsefulFields.getUserOrders(responseJson!);
+
     List<Order> myOrders =
         List<Order>.from(modresponseJson.map((model) => Order.fromJson(model)));
 

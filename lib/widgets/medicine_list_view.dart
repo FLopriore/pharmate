@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
+import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/local_storage/shared_pref.dart';
 import 'package:pharmate/providers/search_provider.dart';
 import 'package:pharmate/screens/confirm_order_page.dart';
@@ -50,8 +51,12 @@ class _MedicineListViewState extends State<MedicineListView> {
   void _searchPharmacies(String codiceAic) async {
     var responseJson = await CallApi().getData("prodotti/avail/$codiceAic");
     if (responseJson != null) {
+
+      // TODO: remove when server is complete
+      var modresponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson!);
+
       List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          responseJson.map((model) => AvailMedicine.fromJson(model)));
+          modresponseJson.map((model) => AvailMedicine.fromJson(model)));
       setState(() {
         listPharma = pharmacies;
       });

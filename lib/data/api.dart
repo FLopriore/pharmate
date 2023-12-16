@@ -7,7 +7,7 @@ class CallApi {
   final String _url = "https://feddynventor.ddns.net/pharm8/";
 
   // POST
-  Future<dynamic> postData(data, String apiUrl) async {
+  Future<bool> postData(data, String apiUrl) async {
     String fullUrl = _url + apiUrl;
     HttpClient client = HttpClient();
     // Bypass SSL certification
@@ -24,10 +24,9 @@ class CallApi {
     HttpClientResponse result = await request.close();
 
     if (result.statusCode == 200) {
-      return jsonDecode(await result.transform(utf8.decoder).join());
-    } else {
-      return null;
+      return true;
     }
+    return false;
   }
 
   // Get
@@ -73,4 +72,4 @@ class CallApi {
       return false;
     }
   }
-  }
+}

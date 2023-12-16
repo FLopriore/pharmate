@@ -121,13 +121,13 @@ class ConfirmOrderPage extends StatelessWidget {
                     onPressed: () async {
                       var data = {
                         'aic': item.codice_aic,
-                        'codice_farmacia': pharmacy,
+                        'codice_farmacia': pharmacy.codice_farmacia,
                         'qt': accessibleNavigation ? controller.text : _numItems,
                       };
                       await CallApi()
-                          .postData(data, 'ordini')
-                          .then((responseJson) {
-                        if (responseJson != null) {
+                          .postData(data, 'ordine')
+                          .then((isSuccess) {
+                        if (isSuccess) {
                           showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
