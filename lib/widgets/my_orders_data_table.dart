@@ -13,7 +13,7 @@ class MyOrdersDataTable extends StatefulWidget {
 
 class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
   late Future<List<Order>> myOrdersList;
-  DateFormat formatter = DateFormat('yyyy-mm-dd');
+  DateFormat formatter = DateFormat().add_yMMMd();
 
   @override
   void initState() {
