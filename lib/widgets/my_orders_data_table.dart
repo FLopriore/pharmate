@@ -32,11 +32,12 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
               alignment: Alignment.topCenter,
               child: DataTable(
                   sortColumnIndex: 0,
-                  sortAscending: true,
+                  sortAscending: false,
+                  dataRowMinHeight: 40.0,
                   columns: const [
                     DataColumn(
-                      label:
-                          Text("Data", style: TextStyle(fontWeight: FontWeight.bold)),
+                      label: Text("Data",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       numeric: true,
                     ),
                     DataColumn(
@@ -55,7 +56,13 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                       snapshot.data!.length,
                       (int index) => DataRow(cells: <DataCell>[
                             DataCell(Text(formatter.format(DateTime.parse(snapshot.data![index].date)))),
-                            DataCell(Text(snapshot.data![index].prodotto.nome)),
+                            DataCell(ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 150),
+                              child: Text(
+                                snapshot.data![index].prodotto.nome,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )),
                             DataCell(Text(snapshot.data![index].quantita.toString())),
                             DataCell(Center(
                               child: Icon(
@@ -66,12 +73,12 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                           ]))),
             ),
           );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+        } else {
+          return const Scaffold(
+            backgroundColor: Color(0xFFF1F1EA),
+            body: Center(child: Text("Non ci sono ordini")),
+          );
         }
-
-        // By default, show a blank Scaffold.
-        return const Scaffold(backgroundColor: Color(0xFFF1F1EA));
       },
     );
   }
@@ -87,13 +94,34 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
     }
   }
 
+  // Gets all the orders done by the user.
+  // After creating the 3 lists, returns the combined list with all of them.
   Future<List<Order>> getMyOrders() async {
-    var responseJson = await CallApi().getData('ordini');
-    // TODO: remove when server is complete
-    var modresponseJson = JsonUsefulFields.getUserOrders(responseJson!);
+    List<Order> myOrders = [];
 
-    List<Order> myOrders =
-        List<Order>.from(modresponseJson.map((model) => Order.fromJson(model)));
+    // Get pending orders
+    var response = await CallApi().getData('ordine/utente?status=PENDING');
+    var modResponse = JsonUsefulFields.getUserOrders(response);
+    if (modResponse.isNotEmpty) {
+      myOrders =
+          List<Order>.from(modResponse.map((model) => Order.fromJson(model)));
+    }
+
+    // Get accepted orders
+    response = await CallApi().getData('ordine/utente?status=ACCEPTED');
+    modResponse = JsonUsefulFields.getUserOrders(response);
+    if (modResponse.isNotEmpty) {
+      myOrders = myOrders +
+          List<Order>.from(modResponse.map((model) => Order.fromJson(model)));
+    }
+
+    // Get delivered orders
+    response = await CallApi().getData('ordine/utente?status=DELIVERED');
+    modResponse = JsonUsefulFields.getUserOrders(response);
+    if (modResponse.isNotEmpty) {
+      myOrders = myOrders +
+          List<Order>.from(modResponse.map((model) => Order.fromJson(model)));
+    }
 
     return myOrders;
   }
