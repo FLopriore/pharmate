@@ -4,10 +4,10 @@ class JsonUsefulFields {
   // users/me
   static Map<String, dynamic> getUserFields(json) {
     var data = {
-      "cf": json["user"]["cf"],
-      "fullname": json["user"]["fullname"],
-      "citta": json["user"]["citta"],
-      "favourite": json["user"]["favourite"],
+      "cf": json["cf"],
+      "fullname": json["fullname"],
+      "citta": json["citta"],
+      "favourite": json["favourite"],
     };
     return data;
   }
@@ -36,7 +36,7 @@ class JsonUsefulFields {
     return result;
   }
 
-  // farmacie/mycity
+  // farmacie/find
   static List<Map<String, dynamic>> getMyCityPharmacies(List jsonList) {
     List<Map<String, dynamic>> result = [];
     for (var element in jsonList) {
@@ -54,22 +54,9 @@ class JsonUsefulFields {
   static List<Map<String, dynamic>> getAvailPharmaciesWithQta(List jsonList) {
     List<Map<String, dynamic>> result = [];
     for (var element in jsonList) {
-      var farmacia = {
-        "nome": element["farmacia"]["nome"],
-        "codice_farmacia": element["farmacia"]["codice_farmacia"],
-        "citta": element["farmacia"]["citta"],
-      };
-
-      var prodotto = {
-        "nome": element["prodotto"]["nome"],
-        "codice_aic": element["prodotto"]["aic"],
-        "prezzo": element["prodotto"]["prezzo"],
-      };
-
       var data = {
-        "farmacia": farmacia,
-        "prodotto": prodotto,
-        "quantita": element["quantita"],
+        "farmacia": element["disponibilita"]["farmacia"],
+        "quantita": element["disponibilita"]["quantita"],
       };
       result.add(data);
     }

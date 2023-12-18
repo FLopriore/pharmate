@@ -57,7 +57,7 @@ class _PharmacyListViewState extends State<PharmacyListView> {
   }
 
   void _getPharmacies() async {
-    var responseJson = await CallApi().getData("farmacie/mycity");
+    var responseJson = await CallApi().getData("farmacie/find");
     if (responseJson != null) {
 
       // TODO: remove this variable when server is complete
