@@ -51,12 +51,9 @@ class _MedicineListViewState extends State<MedicineListView> {
   void _searchPharmacies(String codiceAic) async {
     var responseJson = await CallApi().getData("prodotti/avail/$codiceAic");
     if (responseJson != null) {
-
-      // TODO: remove when server is complete
-      var modresponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson!);
-
+      var modResponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
       List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          modresponseJson.map((model) => AvailMedicine.fromJson(model)));
+          modResponseJson.map((model) => AvailMedicine.fromJson(model)));
       setState(() {
         listPharma = pharmacies;
       });

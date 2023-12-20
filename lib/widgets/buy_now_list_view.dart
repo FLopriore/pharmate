@@ -47,13 +47,10 @@ class _BuyNowListViewState extends State<BuyNowListView> {
     for (int i = 0; i < favoriteMedicinesList.length; i++) {
       Medicine element = favoriteMedicinesList[i];
       var responseJson = await CallApi().getData("prodotti/avail/${element.codice_aic}");
-
-      // TODO: remove this variable when server is complete
-      var modresponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
+      var modResponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
 
       List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          modresponseJson.map((model) => AvailMedicine.fromJson(model)));
-          // responseJson!.map((model) => AvailMedicine.fromJson(model)));
+          modResponseJson.map((model) => AvailMedicine.fromJson(model)));
 
       bool isAvailable = pharmacies.any((element) =>
           element.farmacia.codice_farmacia == _favoritePharmacy.codice_farmacia);
@@ -103,11 +100,8 @@ class _BuyNowListViewState extends State<BuyNowListView> {
   void _getFavoritePharmacy() async {
     var responseJson = await CallApi().getData("users/me");
     if (responseJson != null) {
-
-      // TODO: remove this variable when server is complete
-      var modresponseJson = JsonUsefulFields.getUserFields(responseJson);
-
-      Utente userInfo = Utente.fromJson(modresponseJson);
+      var modResponseJson = JsonUsefulFields.getUserFields(responseJson);
+      Utente userInfo = Utente.fromJson(modResponseJson);
       _favoritePharmacy = userInfo.favourite;
     }
   }

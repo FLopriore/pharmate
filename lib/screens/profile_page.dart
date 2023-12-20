@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
+import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
 import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
@@ -171,12 +172,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<Utente> _getInfo() async {
     var responseJson = await CallApi().getData("users/me");
-
-    // TODO: remove this variable when server is complete
-    var modresponseJson = JsonUsefulFields.getUserFields(responseJson!);
-
-    Utente inforesults = Utente.fromJson(modresponseJson);
-    return inforesults;
+    Utente infoResults;
+    if (responseJson != null) {
+      var modResponseJson = JsonUsefulFields.getUserFields(responseJson);
+      infoResults = Utente.fromJson(modResponseJson);
+    } else {
+      infoResults = Utente("", "", "", Pharmacy("", "", ""));
+    }
+    return infoResults;
   }
 
   Future<void> _deleteUser() async {

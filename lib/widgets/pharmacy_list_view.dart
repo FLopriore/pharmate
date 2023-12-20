@@ -59,12 +59,10 @@ class _PharmacyListViewState extends State<PharmacyListView> {
   void _getPharmacies() async {
     var responseJson = await CallApi().getData("farmacie/find");
     if (responseJson != null) {
-
-      // TODO: remove this variable when server is complete
-      var modresponseJson = JsonUsefulFields.getMyCityPharmacies(responseJson);
+      var modResponseJson = JsonUsefulFields.getMyCityPharmacies(responseJson);
 
       List<Pharmacy> pharmacies = List<Pharmacy>.from(
-          modresponseJson.map((model) => Pharmacy.fromJson(model)));
+          modResponseJson.map((model) => Pharmacy.fromJson(model)));
       setState(() {
         pharmaciesList = pharmacies;
       });
