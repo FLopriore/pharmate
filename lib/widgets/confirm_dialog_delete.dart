@@ -3,14 +3,9 @@ import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/screens/login_page.dart';
 
-class DialogConfirmDelete extends StatefulWidget {
+class DialogConfirmDelete extends StatelessWidget {
   const DialogConfirmDelete({super.key});
 
-  @override
-  State<DialogConfirmDelete> createState() => _DialogConfirmDeleteState();
-}
-
-class _DialogConfirmDeleteState extends State<DialogConfirmDelete> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

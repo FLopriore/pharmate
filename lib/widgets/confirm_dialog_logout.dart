@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/screens/login_page.dart';
 
-class DialogConfirmLogOut extends StatefulWidget {
+class DialogConfirmLogOut extends StatelessWidget {
   const DialogConfirmLogOut({super.key});
 
-  @override
-  State<DialogConfirmLogOut> createState() => _DialogConfirmLogOutState();
-}
-
-class _DialogConfirmLogOutState extends State<DialogConfirmLogOut> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
