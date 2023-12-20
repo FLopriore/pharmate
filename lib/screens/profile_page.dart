@@ -5,6 +5,7 @@ import 'package:pharmate/data/pharmacy.dart';
 import 'package:pharmate/data/user_info.dart';
 import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
+import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/screens/login_page.dart';
 import 'package:pharmate/widgets/confirm_dialog_delete.dart';
 import 'package:pharmate/widgets/confirm_dialog_logout.dart';
@@ -88,7 +89,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Semantics(
                           label: "Il tuo codice fiscale è ${snapshot.data!.cf}",
                           child: ProfileText(
-                              title: snapshot.data!.cf, textAlign: TextAlign.start)),
+                              title: snapshot.data!.cf,
+                              textAlign: TextAlign.start)),
                     ],
                   );
                 } else {
@@ -110,9 +112,23 @@ class _ProfilePageState extends State<ProfilePage> {
               secondary: const Icon(Icons.font_download_outlined),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          const SizedBox(height: 20),
+          Semantics(
+            label: "Modifica la tua farmacia di fiducia",
+            button: true,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFCAE6FF),
+                foregroundColor: const Color(0xFF023D74),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const FavoritePharmacyPage()));
+              },
+              child: const Text("Modifica farmacia di fiducia"),
+            ),
           ),
+          const SizedBox(height: 10),
           Semantics(
             label: "Esci dal tuo account",
             button: true,
