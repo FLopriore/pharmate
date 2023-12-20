@@ -3,6 +3,7 @@ import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/widgets/login_text.dart';
 import 'package:pharmate/widgets/rounded_text_field.dart';
+import 'package:pharmate/widgets/signup_error_dialog.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -75,7 +76,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     if (success) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const FavoritePharmacyPage()));
-                    } // TODO: add dialog to show signup error
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: ((context) {
+                            return const SignupErrorDialog();
+                          }));
+                    }
                   });
                 },
                 icon: const Icon(Icons.navigate_next),
