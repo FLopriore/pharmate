@@ -42,9 +42,11 @@ class _MedicineListViewState extends State<MedicineListView> {
     if (responseJson != null) {
       List<Medicine> searchResults = List<Medicine>.from(
           responseJson.map((model) => Medicine.fromJson(model)));
-      setState(() {
-        searchResultsList = searchResults;
-      });
+      if (mounted) {  // prevents "setState() called after dispose()" error
+        setState(() {
+          searchResultsList = searchResults;
+        });
+      }
     }
   }
 
