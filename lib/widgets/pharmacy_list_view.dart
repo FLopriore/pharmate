@@ -14,7 +14,6 @@ class PharmacyListView extends StatefulWidget {
 
 class _PharmacyListViewState extends State<PharmacyListView> {
   List<Pharmacy> pharmaciesList = [];
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -26,25 +25,22 @@ class _PharmacyListViewState extends State<PharmacyListView> {
   Widget build(BuildContext context) {
     return Consumer<FavPharmacyProvider>(
       builder: (context, provider, child) {
-        if (pharmaciesList.isNotEmpty) provider.setFavPharma(pharmaciesList[0].codice_farmacia);
         return (pharmaciesList.isNotEmpty)
             ? ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           itemCount: pharmaciesList.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
+            bool isSelected = provider.favPharmacyCode == pharmaciesList[index].codice_farmacia;
             return ListTile(
-              selected: index == _selectedIndex,
+              selected: isSelected,
               title: Text(pharmaciesList[index].nome),
               trailing: IconButton(
-                icon: Icon((index == _selectedIndex)
+                icon: Icon((isSelected)
                     ? Icons.radio_button_checked
                     : Icons.radio_button_unchecked),
                 onPressed: () {
                   // Select this pharmacy as favorite one
-                  setState(() {
-                    _selectedIndex = index;
-                  });
                   provider.setFavPharma(pharmaciesList[index].codice_farmacia);
                 },
               ),
