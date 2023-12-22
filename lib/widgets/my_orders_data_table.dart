@@ -34,6 +34,7 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   sortColumnIndex: 0,
                   sortAscending: false,
                   dataRowMinHeight: 40.0,
+                  dataRowMaxHeight: 65,
                   columns: const [
                     DataColumn(
                       label: Text("Data",
@@ -57,10 +58,11 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                       (int index) => DataRow(cells: <DataCell>[
                             DataCell(Text(formatter.format(DateTime.parse(snapshot.data![index].date)))),
                             DataCell(ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 150),
+                              constraints: const BoxConstraints(maxWidth: 170),
                               child: Text(
                                 snapshot.data![index].prodotto.nome,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.visible,
+                                softWrap: true,
                               ),
                             )),
                             DataCell(Text(snapshot.data![index].quantita.toString())),
