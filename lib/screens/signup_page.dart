@@ -3,7 +3,7 @@ import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/widgets/login_text.dart';
 import 'package:pharmate/widgets/rounded_text_field.dart';
-import 'package:pharmate/widgets/signup_error_dialog.dart';
+import 'package:pharmate/dialogs/error_dialog.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -80,7 +80,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       showDialog(
                           context: context,
                           builder: ((context) {
-                            return const SignupErrorDialog();
+                            return const ErrorDialog(
+                              title: "Ops, qualcosa è andato storto",
+                              content: "La registrazione non è andata a buon fine.",
+                            );
                           }));
                     }
                   });

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-class FavPharmaDialog extends StatelessWidget {
-  const FavPharmaDialog({super.key});
+class ErrorDialog extends StatelessWidget {
+  final String title;
+  final String content;
+  const ErrorDialog({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        "Errore",
-        style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
+      title: Text(
+        title,
+        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
       ),
-      content: const Text("Devi selezionare una farmacia di fiducia.",
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+      content: Text(
+          content,
+          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
+      ),
       actions: [
         TextButton(
           onPressed: () {

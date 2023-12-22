@@ -7,8 +7,8 @@ import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/providers/accessibility_provider.dart';
 import 'package:pharmate/screens/favorite_pharmacy_page.dart';
 import 'package:pharmate/screens/login_page.dart';
-import 'package:pharmate/widgets/confirm_dialog_delete.dart';
-import 'package:pharmate/widgets/confirm_dialog_logout.dart';
+import 'package:pharmate/dialogs/confirm_dialog_delete.dart';
+import 'package:pharmate/dialogs/confirm_dialog_logout.dart';
 import 'package:pharmate/widgets/profile_text.dart';
 import 'package:provider/provider.dart';
 
