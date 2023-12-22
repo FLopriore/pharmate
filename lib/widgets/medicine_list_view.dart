@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharmate/data/api.dart';
-import 'package:pharmate/data/avail_medicine.dart';
 import 'package:pharmate/data/medicine.dart';
-import 'package:pharmate/json_useful_fields.dart';
 import 'package:pharmate/local_storage/shared_pref.dart';
 import 'package:pharmate/providers/search_provider.dart';
-import 'package:pharmate/screens/confirm_order_page.dart';
-import 'package:pharmate/widgets/buy_now_list_tile.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
+import 'package:pharmate/widgets/search_expansion_tile.dart';
 import 'package:provider/provider.dart';
 
 class MedicineListView extends StatefulWidget {
@@ -19,7 +16,6 @@ class MedicineListView extends StatefulWidget {
 
 class _MedicineListViewState extends State<MedicineListView> {
   List<Medicine> searchResultsList = [];
-  List<AvailMedicine> listPharma = [];
   List<Medicine> _favList = [];
 
   @override
@@ -50,18 +46,6 @@ class _MedicineListViewState extends State<MedicineListView> {
     }
   }
 
-  void _searchPharmacies(String codiceAic) async {
-    var responseJson = await CallApi().getData("prodotti/avail/$codiceAic");
-    if (responseJson != null) {
-      var modResponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
-      List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          modResponseJson.map((model) => AvailMedicine.fromJson(model)));
-      setState(() {
-        listPharma = pharmacies;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     String searchedText = context.watch<SearchProvider>().searchText;
@@ -78,66 +62,35 @@ class _MedicineListViewState extends State<MedicineListView> {
             Medicine element = searchResultsList.elementAt(index);
             bool isFavorite = _favList.contains(element); // check if the result is among favorite medicines
 
-            return Semantics(
+            return SearchExpansionTile(
+              medicine: element,
+              leading: Semantics(
+                label: "Aggiungi ai preferiti",
+                button: true,
+                container: true,
                 explicitChildNodes: true,
-                child: ExpansionTile(
-                  shape: Border.all(color: Colors.transparent),
-                  title: Semantics(
-                    onTapHint:
-                        "Tocca per scegliere la farmacia dal quale ordinare",
-                    child: Text(
-                      element.nome,
-                      semanticsLabel: "Ordina ${element.nome}",
-                    ),
-                  ),
-                  leading: Semantics(
-                    label: "Aggiungi ai preferiti",
-                    button: true,
-                    container: true,
-                    explicitChildNodes: true,
-                    child: ExcludeSemantics(
-                      child: IconButton(
-                          icon: (isFavorite)
-                              ? const Icon(Icons.grade)
-                              : const Icon(Icons.grade_outlined),
-                          onPressed: () async {
-                            setState(() {
-                              if (isFavorite) {
-                                _favList.remove(element); // remove medicine from favorite
-                              } else {
-                                _favList.add(element); // add medicine to favorite
-                              }
-                            });
-                            SharedPref().setFavoriteMedicines(_favList);
-                          },
-                          style: ButtonStyle(
-                              iconColor: MaterialStateProperty.all(
-                                  const Color(0xff023D74)))),
-                    ),
-                  ),
-                  onExpansionChanged: (value) {
-                    if (value) {
-                      _searchPharmacies(
-                          searchResultsList.elementAt(index).codice_aic);
-                    }
-                  },
-                  children: [
-                    for (var i in listPharma)
-                      Semantics(
-                          label: "Premi per ordinare dalla farmacia",
-                          child: BuyNowListTile(
-                            title: i.farmacia.nome,
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ConfirmOrderPage(
-                                        item: element,
-                                        pharmacy: i.farmacia,
-                                        maxAvailQuantity: i.quantita,
-                                      )));
-                            },
-                          )),
-                  ],
-                ));
+                child: ExcludeSemantics(
+                  child: IconButton(
+                      icon: (isFavorite)
+                          ? const Icon(Icons.grade)
+                          : const Icon(Icons.grade_outlined),
+                      onPressed: () async {
+                        setState(() {
+                          if (isFavorite) {
+                            _favList.remove(
+                                element); // remove medicine from favorite
+                          } else {
+                            _favList.add(element); // add medicine to favorite
+                          }
+                        });
+                        SharedPref().setFavoriteMedicines(_favList);
+                      },
+                      style: ButtonStyle(
+                          iconColor: MaterialStateProperty.all(
+                              const Color(0xff023D74)))),
+                ),
+              ),
+            );
           }),
     );
   }
