@@ -45,11 +45,9 @@ class ConfirmOrderPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        const ExcludeSemantics(
-          child: SizedBox(height: 40),
-        ),
-        SizedBox(
-          height: 300,
+        const ExcludeSemantics(child: SizedBox(height: 40)),
+        ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 300),
           child: RoundedBackgroundRectangle(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
