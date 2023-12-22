@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/providers/fav_pharmacy_provider.dart';
 import 'package:pharmate/widgets/bottom_nav_bar.dart';
+import 'package:pharmate/widgets/fav_pharma_dialog.dart';
 import 'package:pharmate/widgets/pharmacy_list_view.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,12 @@ class FavoritePharmacyPage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const BottomNavBar()),
                       (Route<dynamic> route) => false);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: ((context) {
+                        return const FavPharmaDialog();
+                      }));
                 }
               });
             },
