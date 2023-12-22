@@ -29,6 +29,9 @@ class _SplashPageState extends State<SplashPage> {
         if (value != null) {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const BottomNavBar()));
+        } else {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LoginPage()));
         }
       });
     } else {
