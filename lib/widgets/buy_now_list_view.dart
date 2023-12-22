@@ -19,13 +19,12 @@ class BuyNowListView extends StatefulWidget {
 
 class _BuyNowListViewState extends State<BuyNowListView> {
   Pharmacy _favoritePharmacy = Pharmacy("", "", "");
-  int maxQta = 0;
   List<Medicine> favoriteMedicinesList = [];
 
   // List where each element chooses if "Order" button is enabled.
-  // If element == true, the item is available at the favorite pharmacy.
+  // If element.quantita != 0, the item is available at the favorite pharmacy.
   // Otherwise, button is disabled.
-  List<bool> _isAvailableList = [];
+  List<AvailMedicine> _availableList = [];
 
   @override
   void initState() {
@@ -47,21 +46,22 @@ class _BuyNowListViewState extends State<BuyNowListView> {
   }
 
   void _checkAvailability() async {
-    List<bool> availList = [];
+    List<AvailMedicine> availList = [];
     for (int i = 0; i < favoriteMedicinesList.length; i++) {
       Medicine element = favoriteMedicinesList[i];
-      var responseJson = await CallApi().getData("prodotti/avail/${element.codice_aic}");
-      var modResponseJson = JsonUsefulFields.getAvailPharmaciesWithQta(responseJson);
-
-      List<AvailMedicine> pharmacies = List<AvailMedicine>.from(
-          modResponseJson.map((model) => AvailMedicine.fromJson(model)));
-
-      bool isAvailable = pharmacies.any((element) =>
-          element.farmacia.codice_farmacia == _favoritePharmacy.codice_farmacia);
-      availList.add(isAvailable);
+      var responseJson =
+          await CallApi().getData("prodotti/avail/${element.codice_aic}");
+      if (responseJson != null) {
+        var modResponseJson = JsonUsefulFields.getAvailMedicineFavPharma(responseJson);
+        AvailMedicine availMedicine = AvailMedicine.fromJson(modResponseJson);
+        availList.add(availMedicine);
+      } else {
+        AvailMedicine availMedicine = AvailMedicine(Pharmacy("", "", ""), 0);
+        availList.add(availMedicine);
+      }
     }
     setState(() {
-      _isAvailableList = availList;
+      _availableList = availList;
     });
   }
 
@@ -73,7 +73,12 @@ class _BuyNowListViewState extends State<BuyNowListView> {
           scrollDirection: Axis.vertical,
           itemCount: favoriteMedicinesList.length,
           itemBuilder: (BuildContext context, int index) {
-            bool activated = (_isAvailableList.isNotEmpty) ? _isAvailableList[index] : false;
+            // Check if _availableList loaded.
+            // Otherwise, disable all the buttons by default.
+            bool activated = (_availableList.isNotEmpty)
+                ? (_availableList[index].quantita != 0)
+                : false;
+
             return BuyNowListTile.activation(
               title: favoriteMedicinesList[index].nome,
               isActivated: activated,
@@ -91,9 +96,8 @@ class _BuyNowListViewState extends State<BuyNowListView> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ConfirmOrderPage(
                           item: favoriteMedicinesList[index],
-                          // TODO: get qta from DB
                           pharmacy: _favoritePharmacy,
-                          maxAvailQuantity: 100000,
+                          maxAvailQuantity: _availableList[index].quantita,
                         )));
               },
             );

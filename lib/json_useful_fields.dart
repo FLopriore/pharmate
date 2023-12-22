@@ -1,3 +1,5 @@
+import 'package:pharmate/data/pharmacy.dart';
+
 /// This class contains several methods which modify responseJson coming from
 /// server, converting wrong attributes into the desired ones.
 class JsonUsefulFields {
@@ -76,5 +78,22 @@ class JsonUsefulFields {
       }
     }
     return result;
+  }
+
+  // prodotti/avail/{aic} (only with favorite pharmacy)
+  static Map<String, dynamic> getAvailMedicineFavPharma(json) {
+    Map<String, dynamic> data;
+    if (json["preferita"] != null) {
+      data = {
+        "farmacia": json["preferita"]["farmacia"],
+        "quantita": json["preferita"]["quantita"],
+      };
+    } else {
+      data = {
+        "farmacia": Pharmacy("", "", ""),
+        "quantita": 0,
+      };
+    }
+    return data;
   }
 }
