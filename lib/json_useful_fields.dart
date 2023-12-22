@@ -51,14 +51,29 @@ class JsonUsefulFields {
   }
 
   // prodotti/avail/{aic}
-  static List<Map<String, dynamic>> getAvailPharmaciesWithQta(List jsonList) {
+  static List<Map<String, dynamic>> getAvailPharmaciesWithQta(json) {
     List<Map<String, dynamic>> result = [];
-    for (var element in jsonList) {
-      var data = {
-        "farmacia": element["disponibilita"]["farmacia"],
-        "quantita": element["disponibilita"]["quantita"],
-      };
-      result.add(data);
+    if (json != null) {
+      // favourite pharmacy
+      if (json["preferita"] != null) {
+        var preferita = {
+          "farmacia": json["preferita"]["farmacia"],
+          "quantita": json["preferita"]["quantita"],
+        };
+        result.add(preferita);
+      }
+
+      // other pharmacies
+      List others = json["disponibilita"];
+      if (others.isNotEmpty) {
+        for (var element in others) {
+          var data = {
+            "farmacia": element["farmacia"],
+            "quantita": element["quantita"],
+          };
+          result.add(data);
+        }
+      }
     }
     return result;
   }
