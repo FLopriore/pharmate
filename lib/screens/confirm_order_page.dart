@@ -127,22 +127,22 @@ class ConfirmOrderPage extends StatelessWidget {
                       await CallApi()
                           .postData(data, 'ordine')
                           .then((isSuccess) {
-                        if (isSuccess) {
-                          showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    backgroundColor: Colors.white,
-                                    title: const Text('Esito ordine'),
-                                    content: const Text('Ordine confermato'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ));
-                        }
+                        showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  title: const Text('Esito ordine'),
+                                  content: Text((isSuccess)
+                                      ? "Ordine confermato"
+                                      : "Ops, qualcosa è andato storto.\nRiprova più tardi."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ));
                       });
                     },
                     child: const Text(
