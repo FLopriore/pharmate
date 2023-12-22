@@ -9,8 +9,11 @@ class SharedPref {
   Future<List<Medicine>> getFavoriteMedicines() async {
     final prefs = await _prefs;
     String favListJson = prefs.getString('favorite') ?? "";
-    List<Medicine> list = List<Medicine>.from(
-        jsonDecode(favListJson).map((model) => Medicine.fromJson(model)));
+    List<Medicine> list = [];
+    if (favListJson.isNotEmpty) {
+      list = List<Medicine>.from(
+          jsonDecode(favListJson).map((model) => Medicine.fromJson(model)));
+    }
     return list;
   }
 

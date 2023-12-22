@@ -37,9 +37,13 @@ class _BuyNowListViewState extends State<BuyNowListView> {
   // Loading favoriteMedicinesList stored value
   Future<void> _loadFavorite() async {
     List<Medicine> favList = await SharedPref().getFavoriteMedicines();
-    setState(() {
-      favoriteMedicinesList = favList;
-    });
+
+    // Check if the list is not empty to avoid useless reloading.
+    if (favList.isNotEmpty) {
+      setState(() {
+        favoriteMedicinesList = favList;
+      });
+    }
   }
 
   void _checkAvailability() async {
