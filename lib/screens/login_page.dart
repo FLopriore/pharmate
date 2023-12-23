@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               Visibility(
                 visible: _isVisible,
                 child: const Text(
-                  'Email o Password errata',
+                  'Codice Fiscale o Password errati',
                   style: TextStyle(
                       color: Color(0xff023D74), fontWeight: FontWeight.bold),
                 ),
