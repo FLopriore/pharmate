@@ -10,7 +10,7 @@ class MyOrdersPage extends StatelessWidget {
     return const Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           Align(
             alignment: Alignment.center,
             child: Text(
@@ -18,7 +18,7 @@ class MyOrdersPage extends StatelessWidget {
               semanticsLabel: "Pagina per gestire gli ordini",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
-                fontSize: 60,
+                fontSize: 50,
                 color: Colors.black,
               ),
               textAlign: TextAlign.center,
@@ -26,7 +26,7 @@ class MyOrdersPage extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(vertical: 15),
               child: RoundedBackgroundRectangle(child: MyOrdersDataTable()), //TODO: Add Semantic for every tile
             ),
           )

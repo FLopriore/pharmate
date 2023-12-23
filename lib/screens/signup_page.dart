@@ -42,9 +42,10 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             const SizedBox(height: 20),
             const LoginText(text: "Codice Fiscale"),
-            RoundedTextField(
+            RoundedTextField.fixedText(
                 controller: cfController,
                 hintText: "Inserisci il tuo codice fiscale",
+                textsLenght: 16,
             ),
             const LoginText(text: "Nome"),
             RoundedTextField(
@@ -89,7 +90,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   });
                 },
                 icon: const Icon(Icons.navigate_next),
-                label: const Text("Successivo"),
+                label: const Text("Successivo",
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+                ),
               ),
             ),
           ],

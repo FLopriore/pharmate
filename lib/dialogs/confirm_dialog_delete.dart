@@ -15,13 +15,14 @@ class DialogConfirmDelete extends StatelessWidget {
       ),
       content: const Text(
           "Sei sicuro di voler cancellare il tuo account Pharmate?\nL'operazione è irreversibile.",
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17)),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
             backgroundColor: const Color(0xff023D74),
             foregroundColor: Colors.white,
-            fixedSize: const Size.fromHeight(55),
+            fixedSize: const Size.fromWidth(100),
+            elevation: 5
           ),
           onPressed: () async {
             await _deleteUser().then((value) => Navigator.of(context)
@@ -29,7 +30,7 @@ class DialogConfirmDelete extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                     (Route<dynamic> route) => false));
           },
-          child: const Text("Conferma"),
+          child: const Text("Conferma",style: TextStyle(fontSize: 17),),
         ),
         TextButton(
           onPressed: () {
@@ -38,9 +39,10 @@ class DialogConfirmDelete extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: const Color(0xffCAE6FF),
             foregroundColor: const Color(0xff023D74),
-            fixedSize: const Size.fromHeight(55),
+            fixedSize: const Size.fromWidth(100),
+            elevation: 5
           ),
-          child: const Text("Annulla"),
+          child: const Text("Annulla",style: TextStyle(fontSize: 17)),
         ),
       ],
     );

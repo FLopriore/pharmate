@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           const Align(
             alignment: Alignment.center,
             child: Text(

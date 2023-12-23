@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/data/medicine.dart';
 import 'package:pharmate/data/pharmacy.dart';
+import 'package:pharmate/screens/homepage.dart';
+import 'package:pharmate/widgets/bottom_nav_bar.dart';
 import 'package:pharmate/widgets/rounded_background_rectangle.dart';
 import 'package:pharmate/widgets/set_number_items.dart';
 
@@ -32,6 +34,7 @@ class ConfirmOrderPage extends StatelessWidget {
     return Scaffold(
         body: ListView(
       children: [
+        const SizedBox(height: 80,),
         const Align(
           alignment: Alignment.center,
           child: Text(
@@ -55,7 +58,7 @@ class ConfirmOrderPage extends StatelessWidget {
               const Padding(
                   padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                   child: ExcludeSemantics(
-                    child: Text("Prodotto:"),
+                    child: Text("Prodotto:",style: TextStyle(fontSize: 17),),
                   )),
               ListTile(
                 title: Text(
@@ -81,7 +84,7 @@ class ConfirmOrderPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                 child: ExcludeSemantics(
-                  child: Text("Farmacia:"),
+                  child: Text("Farmacia:",style: TextStyle(fontSize: 17)),
                 ),
               ),
               Padding(
@@ -128,16 +131,19 @@ class ConfirmOrderPage extends StatelessWidget {
                         showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                                  backgroundColor: Colors.white,
-                                  title: const Text('Esito ordine'),
+                                  title: const Text('Esito ordine',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                                   content: Text((isSuccess)
                                       ? "Ordine confermato"
-                                      : "Ops, qualcosa è andato storto.\nRiprova più tardi."),
+                                      : "Ops, qualcosa è andato storto.\nRiprova più tardi.",
+                                      style: const TextStyle(fontSize: 17),),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                          builder: (context) => const BottomNavBar()),
+                                          (Route<dynamic> route) => false),
+                                      child: const Text('OK',style: TextStyle(fontSize: 20,color: Color(0xff023D74)),),
                                     ),
                                   ],
                                 ));
@@ -145,6 +151,7 @@ class ConfirmOrderPage extends StatelessWidget {
                     },
                     child: const Text(
                       "Conferma Ordine",
+                      style: TextStyle(fontSize: 17),
                     )),
               )
             ],

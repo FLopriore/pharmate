@@ -27,7 +27,7 @@ class _SetNumberItemsState extends State<SetNumberItems> {
                     });
                   },
             icon: const Icon(Icons.remove_circle_outline)),
-        Text(numItems.toString()),
+        Text(numItems.toString(),style: const TextStyle(fontSize: 20),),
         IconButton(
             onPressed: (numItems == widget.maxQuantity)
                 ? null

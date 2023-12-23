@@ -47,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 label: "Inserisci ",
                 textField: false,
                 child: TextField(
+                    maxLength: 16,
                     onTap: () {
                       setState(() {
                         _isVisible = false;
@@ -59,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.all(Radius.circular(40))),
                       labelText: 'Codice Fiscale',
+                      counterText: "",                     
                     )),
               ),
               const ExcludeSemantics(
@@ -115,7 +117,9 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                   icon: const Icon(Icons.login),
-                  label: const Text("Entra"),
+                  label: const Text("Entra",
+                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+                  ),
                 ),
               ),
               const SizedBox(height: 80),
@@ -135,7 +139,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const SignUpPage())),
-                child: const Text("Registrati"),
+                child: const Text("Registrati",
+                      style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+                ),
               ),
             ],
           ),

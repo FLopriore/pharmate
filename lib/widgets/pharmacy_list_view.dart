@@ -34,7 +34,7 @@ class _PharmacyListViewState extends State<PharmacyListView> {
             bool isSelected = provider.favPharmacyCode == pharmaciesList[index].codice_farmacia;
             return ListTile(
               selected: isSelected,
-              title: Text(pharmaciesList[index].nome),
+              title: Text(pharmaciesList[index].nome,style: const TextStyle(fontSize: 17),),
               trailing: IconButton(
                 icon: Icon((isSelected)
                     ? Icons.radio_button_checked

@@ -38,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return Scaffold(
           body: ListView(
         children: [
+          const SizedBox(height: 50,),
           const Text(
             "Profilo",
             semanticsLabel: "Pagina Profilo",
@@ -63,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     primary: false,
                     crossAxisSpacing: 25,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 5,
+                    childAspectRatio: 3,
                     crossAxisCount: 2,
                     children: <Widget>[
                       const ExcludeSemantics(
@@ -84,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               textAlign: TextAlign.start)),
                       const ExcludeSemantics(
                           child: ProfileText(
-                              title: 'Codice Fiscale: ',
+                              title: 'CF: ',
                               textAlign: TextAlign.end)),
                       Semantics(
                           label: "Il tuo codice fiscale è ${snapshot.data!.cf}",
@@ -104,7 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
             child: SwitchListTile.adaptive(
               title: Text(themeNotifier.isAccessibleFont
                   ? "Usa il font predefinito"
-                  : "Usa un font accessibile"),
+                  : "Usa un font accessibile",
+                  style: const TextStyle(fontSize: 20),),
               value: themeNotifier.isAccessibleFont,
               onChanged: (bool value) {
                 themeNotifier.isAccessibleFont = value;
@@ -116,7 +118,9 @@ class _ProfilePageState extends State<ProfilePage> {
           Semantics(
             label: "Modifica la tua farmacia di fiducia",
             button: true,
-            child: ElevatedButton(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child:ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFCAE6FF),
                 foregroundColor: const Color(0xFF023D74),
@@ -125,14 +129,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const FavoritePharmacyPage()));
               },
-              child: const Text("Modifica farmacia di fiducia"),
+              child: const Text("Modifica farmacia di fiducia", style:TextStyle(fontSize: 17),),
             ),
-          ),
+          ),),
           const SizedBox(height: 10),
           Semantics(
             label: "Esci dal tuo account",
             button: true,
-            child: ElevatedButton(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child:ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFCAE6FF),
                 foregroundColor: const Color(0xFF023D74),
@@ -152,13 +158,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       }));
                 }
               },
-              child: const Text("Esci dal profilo"),
-            ),
+              child: const Text("Esci dal profilo", style:TextStyle(fontSize: 17),),
+            ),),
           ),
           Semantics(
             label: "Elimina il tuo account Pharmate",
             button: true,
-            child: ElevatedButton(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child:ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF023D74),
                 foregroundColor: const Color(0xFFCAE6FF),
@@ -178,8 +186,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       }));
                 }
               },
-              child: const Text("Elimina Account"),
-            ),
+              child: const Text("Elimina Account", style:TextStyle(fontSize: 17),),
+            ),),
           )
         ],
       ));

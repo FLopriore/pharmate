@@ -15,7 +15,7 @@ class FavoritePharmacyPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 25),
+          const SizedBox(height: 80),
           const Align(
             alignment: Alignment.center,
             child: Text(
@@ -23,7 +23,7 @@ class FavoritePharmacyPage extends StatelessWidget {
               semanticsLabel: "Pagina per aggiungere una farmacia di fiducia",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
-                fontSize: 50,
+                fontSize: 45,
                 color: Colors.black,
               ),
               textAlign: TextAlign.center,
@@ -35,6 +35,7 @@ class FavoritePharmacyPage extends StatelessWidget {
               child: RoundedBackgroundRectangle(child: PharmacyListView()), //TODO: Add Semantic for every tile
             ),
           ),
+          const SizedBox(height: 10,),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff023D74),
@@ -63,9 +64,11 @@ class FavoritePharmacyPage extends StatelessWidget {
               });
             },
             icon: const Icon(Icons.login),
-            label: const Text("Entra"),
+            label: const Text("Entra",
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+                ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 50),
         ],
       ),
     );

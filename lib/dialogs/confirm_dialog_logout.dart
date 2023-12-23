@@ -13,13 +13,14 @@ class DialogConfirmLogOut extends StatelessWidget {
         style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30),
       ),
       content: const Text("Sei sicuro di uscire dal profilo?",
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17)),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
             backgroundColor: const Color(0xff023D74),
             foregroundColor: Colors.white,
-            fixedSize: const Size.fromHeight(55),
+            fixedSize: const Size.fromWidth(100),
+            elevation: 5
           ),
           onPressed: () {
             LoginSecureStorage.deleteLoginSecureStorage();
@@ -27,7 +28,7 @@ class DialogConfirmLogOut extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const LoginPage()),
                 (Route<dynamic> route) => false);
           },
-          child: const Text("Conferma"),
+          child: const Text("Conferma",style: TextStyle(fontSize: 17)),
         ),
         TextButton(
           onPressed: () {
@@ -36,9 +37,10 @@ class DialogConfirmLogOut extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: const Color(0xffCAE6FF),
             foregroundColor: const Color(0xff023D74),
-            fixedSize: const Size.fromHeight(55),
+            fixedSize: const Size.fromWidth(100),
+            elevation: 5
           ),
-          child: const Text("Annulla"),
+          child: const Text("Annulla",style: TextStyle(fontSize: 17)),
         ),
       ],
     );

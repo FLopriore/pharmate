@@ -38,34 +38,35 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   columns: const [
                     DataColumn(
                       label: Text("Data",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
                       numeric: true,
                     ),
                     DataColumn(
                         label: Text("Prodotto",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17))),
                     DataColumn(
                       label: Text("Qtà",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
                       numeric: true,
                     ),
                     DataColumn(
                         label: Text("Stato",
-                            style: TextStyle(fontWeight: FontWeight.bold))),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17))),
                   ],
                   rows: List<DataRow>.generate(
                       snapshot.data!.length,
                       (int index) => DataRow(cells: <DataCell>[
-                            DataCell(Text(formatter.format(DateTime.parse(snapshot.data![index].date)))),
+                            DataCell(Text(formatter.format(DateTime.parse(snapshot.data![index].date)),style: const TextStyle(fontSize:20),)),
                             DataCell(ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 170),
                               child: Text(
                                 snapshot.data![index].prodotto.nome,
                                 overflow: TextOverflow.visible,
                                 softWrap: true,
+                                style: const TextStyle(fontSize:17),
                               ),
                             )),
-                            DataCell(Text(snapshot.data![index].quantita.toString())),
+                            DataCell(Text(snapshot.data![index].quantita.toString(),style: const TextStyle(fontSize:20),)),
                             DataCell(Center(
                               child: Icon(
                                 Icons.circle,
