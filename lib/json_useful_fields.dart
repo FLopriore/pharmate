@@ -5,13 +5,23 @@ import 'package:pharmate/data/pharmacy.dart';
 class JsonUsefulFields {
   // users/me
   static Map<String, dynamic> getUserFields(json) {
-    var data = {
+    if (json["favourite"] != null) {
+      return {
+        "cf": json["cf"],
+        "fullname": json["fullname"],
+        "citta": json["citta"],
+        "favourite": json["favourite"],
+      };
+    }
+
+    // Set pharmacy where you work as favorite.
+    // This section is executed only if the account belongs to a pharmacy owner.
+    return {
       "cf": json["cf"],
       "fullname": json["fullname"],
       "citta": json["citta"],
-      "favourite": json["favourite"],
+      "favourite": json["worksIn"],
     };
-    return data;
   }
 
   // ordine/utente
