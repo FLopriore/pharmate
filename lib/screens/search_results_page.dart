@@ -18,6 +18,7 @@ class SearchResultsPage extends StatelessWidget {
             Alignment.center,
             child: Text(
             "Ordina",
+            semanticsLabel: "Pagina per visualizzare i risultati della ricerca",
             style: TextStyle(fontWeight: FontWeight.w900,fontSize: 60,color: Colors.black),
             textAlign: TextAlign.center,
                 ),

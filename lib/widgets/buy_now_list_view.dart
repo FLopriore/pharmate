@@ -83,7 +83,7 @@ class _BuyNowListViewState extends State<BuyNowListView> {
               title: favoriteMedicinesList[index].nome,
               isActivated: activated,
               leading: IconButton(
-                icon: const Icon(Icons.delete_outline),
+                icon: const Icon(Icons.delete_outline,semanticLabel: "Elimina Farmaco dai Preferiti",),
                 onPressed: () async {
                   setState(() {
                     favoriteMedicinesList
