@@ -118,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Semantics(
             label: "Modifica la tua farmacia di fiducia",
             button: true,
-            child: Padding(
+            child: ExcludeSemantics(child:Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child:ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -131,12 +131,12 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: const Text("Modifica farmacia di fiducia", style:TextStyle(fontSize: 17),),
             ),
-          ),),
+          ),),),
           const SizedBox(height: 10),
           Semantics(
             label: "Esci dal tuo account",
             button: true,
-            child: Padding(
+            child: ExcludeSemantics(child:Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child:ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -160,11 +160,11 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: const Text("Esci dal profilo", style:TextStyle(fontSize: 17),),
             ),),
-          ),
+          ),),
           Semantics(
             label: "Elimina il tuo account Pharmate",
             button: true,
-            child: Padding(
+            child: ExcludeSemantics(child:Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child:ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -188,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: const Text("Elimina Account", style:TextStyle(fontSize: 17),),
             ),),
-          )
+          )),
         ],
       ));
     });
