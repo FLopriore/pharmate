@@ -100,7 +100,7 @@ class JsonUsefulFields {
       };
     } else {
       data = {
-        "farmacia": Pharmacy("", "", ""),
+        "farmacia": Pharmacy("", "", "").toJson(),
         "quantita": 0,
       };
     }
