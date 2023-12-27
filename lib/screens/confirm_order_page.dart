@@ -65,7 +65,7 @@ class ConfirmOrderPage extends StatelessWidget {
               ListTile(
                 title: Text(
                   item.nome,
-                  semanticsLabel: "Stai ordinato il prodotto: ${item.nome}",
+                  semanticsLabel: "Stai ordinando il prodotto: ${item.nome}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -111,8 +111,12 @@ class ConfirmOrderPage extends StatelessWidget {
                         child: TextField(
                           maxLength: 2,
                           controller: controller,
+                          decoration: const InputDecoration(
+                            counterText: "", 
+                          ),
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
+                          
                           ],
                         ))),
               ),
