@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          const Expanded(child: BuyNowListView()), //TODO: Add semantics directly to list tiles
+          const Expanded(child: BuyNowListView()),
           const SizedBox(height: 60),
         ],
       ),

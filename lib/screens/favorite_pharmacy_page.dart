@@ -32,7 +32,7 @@ class FavoritePharmacyPage extends StatelessWidget {
           const Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 30),
-              child: RoundedBackgroundRectangle(child: PharmacyListView()), //TODO: Add Semantic for every tile
+              child: RoundedBackgroundRectangle(child: PharmacyListView()),
             ),
           ),
           const SizedBox(height: 10,),

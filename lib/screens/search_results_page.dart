@@ -41,7 +41,7 @@ class SearchResultsPage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          const Expanded(child: MedicineListView()), //TODO: Add Semantics to List view
+          const Expanded(child: MedicineListView()),
           const SizedBox(height: 20),
         ]
       )

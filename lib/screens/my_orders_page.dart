@@ -27,7 +27,7 @@ class MyOrdersPage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
-              child: RoundedBackgroundRectangle(child: MyOrdersDataTable()), //TODO: Add Semantic for every tile
+              child: RoundedBackgroundRectangle(child: MyOrdersDataTable()),
             ),
           )
         ],
