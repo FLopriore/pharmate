@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmate/authorization/authorization.dart';
 import 'package:pharmate/data/api.dart';
 import 'package:pharmate/authorization/login_secure_storage.dart';
 import 'package:pharmate/screens/login_page.dart';
@@ -21,24 +22,38 @@ class _SplashPageState extends State<SplashPage> {
 
   void _checkLogin() async {
     // Check if there are any stored tokens.
-    String? token =
-        await LoginSecureStorage.getLoginSecureStorage('loginToken');
-    if (token != null && token.isNotEmpty) {
-      // Test if the token corresponds to an existing user.
-      await CallApi().getData('users/me').then((value) {
-        if (value != null) {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const BottomNavBar()));
-        } else {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const LoginPage()));
-        }
-      });
-    } else {
-      Future.delayed(
-          const Duration(seconds: 1),
-          () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const LoginPage())));
+    String? token = await LoginSecureStorage.getLoginSecureStorage('loginToken');
+    String? cf = await LoginSecureStorage.getLoginSecureStorage('cf');
+    String? password = await LoginSecureStorage.getLoginSecureStorage('password');
+
+    LoginType loginType = _loginType(token, cf, password);
+
+    switch (loginType) {
+      case LoginType.token:
+        await CallApi().getData('users/me').then((value) {
+          if (value != null) {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const BottomNavBar()));
+          } else {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage()));
+          }
+        });
+      case LoginType.password:
+        await Authorization().login(cf!, password!).then((value) {
+          if (value) {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const BottomNavBar()));
+          } else {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage()));
+          }
+        });
+      case LoginType.login:
+        Future.delayed(
+            const Duration(seconds: 1),
+                () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage())));
     }
   }
 
@@ -48,4 +63,18 @@ class _SplashPageState extends State<SplashPage> {
       body: SizedBox.shrink(),
     );
   }
+
+  LoginType _loginType(String? token, String? cf, String? password) {
+    if (token != null && token.isNotEmpty) return LoginType.token;
+    if (cf != null && password != null && cf.isNotEmpty && password.isNotEmpty){
+      return LoginType.password;
+    }
+    return LoginType.login;
+  }
+}
+
+enum LoginType {
+  token,
+  password,
+  login,
 }

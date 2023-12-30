@@ -39,6 +39,8 @@ class Authorization {
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(await response.transform(utf8.decoder).join());
       LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
+      LoginSecureStorage.storeLoginSecureStorage('cf', cf);
+      LoginSecureStorage.storeLoginSecureStorage('password', password);
       return true;
     }
     return false;
@@ -66,6 +68,8 @@ class Authorization {
     if (result.statusCode == 200) {
       var responseJson = jsonDecode(await result.transform(utf8.decoder).join());
       LoginSecureStorage.storeLoginSecureStorage('loginToken', responseJson['token']);
+      LoginSecureStorage.storeLoginSecureStorage('cf', cf);
+      LoginSecureStorage.storeLoginSecureStorage('password', password);
       return true;
     }
     return false;
