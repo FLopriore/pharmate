@@ -27,33 +27,39 @@ class _SplashPageState extends State<SplashPage> {
     String? password = await LoginSecureStorage.getLoginSecureStorage('password');
 
     LoginType loginType = _loginType(token, cf, password);
+    bool login = false;
 
     switch (loginType) {
       case LoginType.token:
         await CallApi().getData('users/me').then((value) {
           if (value != null) {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const BottomNavBar()));
-          } else {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginPage()));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                    (Route<dynamic> route) => false);
+            login = true;
           }
         });
+        if (login) break; // if it did login with token, exit switch
+        continue pwd; // if token is expired, try login with cf and password
+      pwd:
       case LoginType.password:
-        await Authorization().login(cf!, password!).then((value) {
+        await Authorization().login(cf ?? "", password ?? "").then((value) {
           if (value) {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const BottomNavBar()));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                    (Route<dynamic> route) => false);
           } else {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginPage()));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
           }
         });
       case LoginType.login:
         Future.delayed(
             const Duration(seconds: 1),
-                () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginPage())));
+                () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                        (Route<dynamic> route) => false));
     }
   }
 
