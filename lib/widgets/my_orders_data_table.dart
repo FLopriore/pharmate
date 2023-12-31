@@ -35,7 +35,7 @@ class _MyOrdersDataTableState extends State<MyOrdersDataTable> {
                   sortColumnIndex: 0,
                   sortAscending: false,
                   dataRowMinHeight: 40.0,
-                  dataRowMaxHeight: 65,
+                  dataRowMaxHeight: 75,
                   columns: const [
                     DataColumn(
                       label: ExcludeSemantics(child:Text("Data",
